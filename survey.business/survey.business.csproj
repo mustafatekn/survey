@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+<ItemGroup>
+    <ProjectReference  Include="..\survey.entity\survey.entity.csproj"/>
+    <ProjectReference  Include="..\survey.data\survey.data.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Penthos\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Penthos\\.nuget\\packages"
+    ]
+  }
+}
