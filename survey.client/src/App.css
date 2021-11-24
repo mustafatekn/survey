@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#header-img {
+  height: 700px;
+  background-image: url("./img/header.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+  opacity: 90%;
+}
+
+#categoryList {
+  cursor: pointer;
+}
