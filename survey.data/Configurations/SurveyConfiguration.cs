@@ -9,7 +9,6 @@ namespace survey.data.Configurations
         public void Configure(EntityTypeBuilder<Survey> builder)
         {
             builder.HasKey(s => s.Id);
-            builder.Property(s => s.Choices).IsRequired();
             builder.Property(s => s.CreatedAt).IsRequired();
             builder.Property(s => s.Description).IsRequired();
             builder.Property(s => s.Question).IsRequired();
