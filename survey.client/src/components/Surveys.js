@@ -6,19 +6,26 @@ import Categories from "./Categories";
 import { Row, Col } from "reactstrap";
 
 export default function Surveys() {
-  const [surveyList, setSurveyList] = useState([]);
+  const [surveys, setSurveys] = useState([]);
   const dispatch = useSurveyDispatch();
 
-  const getSurveys = () => {
-    axios
-      .get("/surveys")
-      .then((res) => {
-        setSurveyList(res.data);
+  const getSurveys = (category) => {
+    if (category && category.id !== 0) {
+      axios.get(`/surveys/category/?categoryId=${category.id}`).then((res) => {
+        setSurveys(res.data);
         dispatch({ type: "SET_SURVEYS", payload: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    } else {
+      axios
+        .get("/surveys")
+        .then((res) => {
+          setSurveys(res.data);
+          dispatch({ type: "SET_SURVEYS", payload: res.data });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -28,10 +35,10 @@ export default function Surveys() {
   return (
     <Row>
       <Col md={3}>
-        <Categories />
+        <Categories getSurveys={getSurveys} />
       </Col>
       <Col md={9}>
-        {surveyList.map((survey) => (
+        {surveys.map((survey) => (
           <Survey survey={survey} key={survey.id} />
         ))}
       </Col>

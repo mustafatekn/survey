@@ -8,6 +8,10 @@ export default function Categories({ getSurveys }) {
   const [currentCategory, setCurrentCategory] = useState({});
   const dispatch = useSurveyDispatch();
 
+  const emptyCategory = {
+    id: 0,
+    name: null,
+  };
   const getCategories = () => {
     axios
       .get("/categories")
@@ -22,6 +26,7 @@ export default function Categories({ getSurveys }) {
 
   const changeCategory = (category) => {
     dispatch({ type: "CHANGE_CATEGORY", payload: category });
+    getSurveys(category);
   };
 
   useEffect(() => {
@@ -30,9 +35,19 @@ export default function Categories({ getSurveys }) {
 
   return (
     <ListGroup>
+      <ListGroupItem
+        active={!currentCategory.id}
+        className="categoryList"
+        onClick={(e) => {
+          setCurrentCategory(emptyCategory);
+          changeCategory(emptyCategory);
+        }}
+      >
+        All Surveys
+      </ListGroupItem>
       {categoryList.map((category) => (
         <ListGroupItem
-          id="categoryList"
+          className="categoryList"
           key={category.id}
           active={category.id === currentCategory.id}
           onClick={(e) => {

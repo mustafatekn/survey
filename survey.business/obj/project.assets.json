@@ -5741,11 +5741,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\survey.business.csproj",
+      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.business\\survey.business.csproj",
       "projectName": "survey.business",
-      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\survey.business.csproj",
+      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.business\\survey.business.csproj",
       "packagesPath": "C:\\Users\\Penthos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\obj\\",
+      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Penthos\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5760,11 +5760,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Penthos\\Desktop\\survey\\survey.data\\survey.data.csproj": {
-              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.data\\survey.data.csproj"
+            "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.data\\survey.data.csproj": {
+              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.data\\survey.data.csproj"
             },
-            "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj": {
-              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj"
+            "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj": {
+              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj"
             }
           }
         }

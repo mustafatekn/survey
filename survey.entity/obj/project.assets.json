@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
+      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj",
       "projectName": "survey.entity",
-      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
+      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj",
       "packagesPath": "C:\\Users\\Penthos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\obj\\",
+      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Penthos\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -11,6 +11,7 @@ function App() {
   return (
     <SurveyProvider>
       <BrowserRouter>
+        <NavigationBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/survey" element={<Survey />} />
