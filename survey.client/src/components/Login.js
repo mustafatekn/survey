@@ -31,6 +31,7 @@ export default function Login() {
     const submitLogin = (e) => {
         e.preventDefault();
         login(userData);
+        window.location.href ='/';
     }
 
   return (

@@ -47,9 +47,18 @@ namespace survey.data.Concrete
             }
             return user;
         }
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExistsByUsername(string username)
         {
             if (await SurveyContext.Users.AnyAsync(u => u.Username == username))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> UserExistsByEmail(string email)
+        {
+            if (await SurveyContext.Users.AnyAsync(u => u.Email == email))
             {
                 return true;
             }

@@ -7,7 +7,8 @@ namespace survey.data.Abstract
     {
         Task<User> Register(User user, string password);
         Task<User> Login(string username, string password);
-        Task<bool> UserExists(string username);
+        Task<bool> UserExistsByUsername(string username);
+        Task<bool> UserExistsByEmail(string email);
         Task<User> GetByEmail(string email);
     }
 }

@@ -31,33 +31,46 @@ namespace survey.webapi.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
         {
-            if(userRegisterDto.Username.Trim()==""){
+            if (userRegisterDto.Username.Trim() == "")
+            {
                 ModelState.AddModelError("Username", "Username can not be empty");
             }
+
             if (userRegisterDto.Email.Trim() == "")
             {
                 ModelState.AddModelError("Email", "Email can not be empty");
             }
+
             if (userRegisterDto.Password.Trim() == "")
             {
                 ModelState.AddModelError("Password", "Password can not be empty");
             }
+
             if (userRegisterDto.ConfirmPassword.Trim() == "")
             {
                 ModelState.AddModelError("ConfirmPassword", "ConfirmPassword can not be empty");
             }
+
             if (userRegisterDto.Password != userRegisterDto.ConfirmPassword)
             {
                 ModelState.AddModelError("Password", "Passwords must match");
             }
+
             if (!IsEmail(userRegisterDto.Email))
             {
                 ModelState.AddModelError("Email", "Email must be in email format");
             }
-            if (await _authService.UserExists(userRegisterDto.Username))
+
+            if (await _authService.UserExistsByEmail(userRegisterDto.Email))
             {
                 ModelState.AddModelError("Email", "Email has already used by another user");
             }
+
+            if (await _authService.UserExistsByUsername(userRegisterDto.Username))
+            {
+                ModelState.AddModelError("Username", "Username has already used by another user");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -154,6 +167,6 @@ namespace survey.webapi.Controllers
                 Token = token
             };
         }
-        
+
     }
 }

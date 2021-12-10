@@ -58,9 +58,14 @@ namespace survey.business.Concrete
             return user;
         }
 
-        public async Task<bool> UserExists(string username)
+        public async Task<bool> UserExistsByUsername(string username)
         {
-            return await _unitOfWork.Users.UserExists(username);
+            return await _unitOfWork.Users.UserExistsByUsername(username);
+        }
+
+        public async Task<bool> UserExistsByEmail(string username)
+        {
+            return await _unitOfWork.Users.UserExistsByEmail(username);
         }
     }
 }

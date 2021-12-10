@@ -12,6 +12,7 @@ namespace survey.business.Abstract
         Task<User> GetById(int id);
         Task<User> GetByEmail(string email);
         Task<User> Login(string username, string password);
-        Task<bool> UserExists(string username);
+        Task<bool> UserExistsByUsername(string username);
+        Task<bool> UserExistsByEmail(string email);
     }
 }
