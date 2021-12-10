@@ -28,30 +28,33 @@ namespace survey.webapi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
         {
-            if (createUserDto.Email.Trim() == "")
+            if(userRegisterDto.Username.Trim()==""){
+                ModelState.AddModelError("Username", "Username can not be empty");
+            }
+            if (userRegisterDto.Email.Trim() == "")
             {
                 ModelState.AddModelError("Email", "Email can not be empty");
             }
-            if (createUserDto.Password.Trim() == "")
+            if (userRegisterDto.Password.Trim() == "")
             {
                 ModelState.AddModelError("Password", "Password can not be empty");
             }
-            if (createUserDto.ConfirmPassword.Trim() == "")
+            if (userRegisterDto.ConfirmPassword.Trim() == "")
             {
                 ModelState.AddModelError("ConfirmPassword", "ConfirmPassword can not be empty");
             }
-            if (createUserDto.Password != createUserDto.ConfirmPassword)
+            if (userRegisterDto.Password != userRegisterDto.ConfirmPassword)
             {
                 ModelState.AddModelError("Password", "Passwords must match");
             }
-            if (!IsEmail(createUserDto.Email))
+            if (!IsEmail(userRegisterDto.Email))
             {
                 ModelState.AddModelError("Email", "Email must be in email format");
             }
-            if (await _authService.UserExists(createUserDto.Email))
+            if (await _authService.UserExists(userRegisterDto.Username))
             {
                 ModelState.AddModelError("Email", "Email has already used by another user");
             }
@@ -61,18 +64,20 @@ namespace survey.webapi.Controllers
             }
             var newUser = new User
             {
-                Email = createUserDto.Email
+                Username = userRegisterDto.Username,
+                Email = userRegisterDto.Email
             };
-            var createdUser = await _authService.Create(newUser, createUserDto.Password);
-            return StatusCode(201, createdUser.Email);
+            var createdUser = await _authService.Create(newUser, userRegisterDto.Password);
+            return StatusCode(201, newUser);
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
         {
-            if (userLoginDto.Email.Trim() == "")
+            if (userLoginDto.Username.Trim() == "")
             {
-                ModelState.AddModelError("Email", "Email can not be empty");
+                ModelState.AddModelError("Username", "Username can not be empty");
             }
 
             if (userLoginDto.Password == "")
@@ -80,17 +85,12 @@ namespace survey.webapi.Controllers
                 ModelState.AddModelError("Password", "Password can not be empty");
             }
 
-            if (!IsEmail(userLoginDto.Email))
-            {
-                ModelState.AddModelError("Email", "Email must be in email format");
-            }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _authService.Login(userLoginDto.Email, userLoginDto.Password);
+            var user = await _authService.Login(userLoginDto.Username, userLoginDto.Password);
             if (user == null)
             {
                 return Unauthorized();
@@ -110,7 +110,7 @@ namespace survey.webapi.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            return Ok(tokenString);
+            return Ok(UserToDto(user, tokenString));
         }
 
         [HttpDelete]
@@ -142,5 +142,18 @@ namespace survey.webapi.Controllers
                 return false;
             }
         }
+
+        private static UserToReturnDto UserToDto(User user, string token)
+        {
+            return new UserToReturnDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                CreatedAt = user.CreatedAt,
+                Username = user.Username,
+                Token = token
+            };
+        }
+        
     }
 }

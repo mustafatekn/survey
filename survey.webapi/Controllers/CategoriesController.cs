@@ -34,7 +34,6 @@ namespace survey.webapi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
         {
             if (string.IsNullOrEmpty(createCategoryDto.Name))

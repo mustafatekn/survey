@@ -53,7 +53,6 @@ namespace survey.webapi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreateSurvey([FromBody] CreateSurveyDto createSurveyDto)
         {
             var category = new Category();
@@ -89,7 +88,6 @@ namespace survey.webapi.Controllers
             }
         }
         [HttpDelete]
-        [Authorize]
         public async Task<IActionResult> DeleteSurvey(int surveyId)
         {
             var survey = await _surveyService.GetById(surveyId);

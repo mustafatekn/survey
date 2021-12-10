@@ -4,12 +4,13 @@ using survey.entity;
 
 namespace survey.webapi.DTO
 {
-    public class CreateUserDto
+    public class UserRegisterDto
     {
-        public CreateUserDto()
+        public UserRegisterDto()
         {
             CreatedAt = DateTime.Now;
         }
+        public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }

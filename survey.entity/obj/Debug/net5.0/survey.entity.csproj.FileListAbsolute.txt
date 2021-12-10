@@ -34,3 +34,15 @@ C:\Users\Penthos\Desktop\survey-api-repository-pattern\survey.entity\obj\Debug\n
 C:\Users\Penthos\Desktop\survey-api-repository-pattern\survey.entity\obj\Debug\net5.0\survey.entity.dll
 C:\Users\Penthos\Desktop\survey-api-repository-pattern\survey.entity\obj\Debug\net5.0\ref\survey.entity.dll
 C:\Users\Penthos\Desktop\survey-api-repository-pattern\survey.entity\obj\Debug\net5.0\survey.entity.pdb
+C:\Users\ASUS\Desktop\survey\survey.entity\bin\Debug\net5.0\survey.entity.deps.json
+C:\Users\ASUS\Desktop\survey\survey.entity\bin\Debug\net5.0\survey.entity.dll
+C:\Users\ASUS\Desktop\survey\survey.entity\bin\Debug\net5.0\ref\survey.entity.dll
+C:\Users\ASUS\Desktop\survey\survey.entity\bin\Debug\net5.0\survey.entity.pdb
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.AssemblyInfoInputs.cache
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.AssemblyInfo.cs
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.dll
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\ref\survey.entity.dll
+C:\Users\ASUS\Desktop\survey\survey.entity\obj\Debug\net5.0\survey.entity.pdb

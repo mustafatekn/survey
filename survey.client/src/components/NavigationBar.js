@@ -6,7 +6,6 @@ import {
   Collapse,
   Nav,
   NavItem,
-  NavLink,
 } from "reactstrap";
 
 export default function NavigationBar() {
@@ -28,28 +27,18 @@ export default function NavigationBar() {
               Surveys
             </Link>
           </NavItem>
+          <NavItem>
+            <Link to="/auth/register" className="nav-link">
+              Register
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/auth/login" className="nav-link">
+              Login
+            </Link>
+          </NavItem>
         </Nav>
       </Collapse>
     </Navbar>
   );
 }
-
-<Navbar color="transparent">
-  <Link to="/" className="nav-link text-danger">
-    Navbar
-  </Link>
-
-  <NavbarToggler onClick={function noRefCheck() {}} />
-  <Collapse navbar>
-    <Nav className="ms-auto" navbar>
-      <NavItem>
-        <NavLink>
-          <Link to="/">Home</Link>
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink href="/survey">Surveys</NavLink>
-      </NavItem>
-    </Nav>
-  </Collapse>
-</Navbar>;

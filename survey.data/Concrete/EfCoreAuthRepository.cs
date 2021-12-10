@@ -17,7 +17,7 @@ namespace survey.data.Concrete
             get { return context as SurveyContext; }
         }
 
-        public async Task<User> CreateUser(User user, string password)
+        public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -34,9 +34,9 @@ namespace survey.data.Concrete
             return user;
         }
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string username, string password)
         {
-            var user = await SurveyContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await SurveyContext.Users.FirstOrDefaultAsync(u => u.Username == username);
             if (user == null)
             {
                 return null;
@@ -47,9 +47,9 @@ namespace survey.data.Concrete
             }
             return user;
         }
-        public async Task<bool> UserExists(string email)
+        public async Task<bool> UserExists(string username)
         {
-            if (await SurveyContext.Users.AnyAsync(u => u.Email == email))
+            if (await SurveyContext.Users.AnyAsync(u => u.Username == username))
             {
                 return true;
             }

@@ -17,7 +17,7 @@ export default function Surveys() {
       });
     } else {
       axios
-        .get("/surveys")
+        .get('/surveys')
         .then((res) => {
           setSurveys(res.data);
           dispatch({ type: "SET_SURVEYS", payload: res.data });

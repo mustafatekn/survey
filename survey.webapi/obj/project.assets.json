@@ -5705,19 +5705,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Penthos\\.nuget\\packages\\": {}
+    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.webapi\\survey.webapi.csproj",
+      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\survey\\survey.webapi\\survey.webapi.csproj",
       "projectName": "survey.webapi",
-      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.webapi\\survey.webapi.csproj",
-      "packagesPath": "C:\\Users\\Penthos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.webapi\\obj\\",
+      "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.webapi\\survey.webapi.csproj",
+      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.webapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Penthos\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -5729,11 +5729,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.business\\survey.business.csproj": {
-              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.business\\survey.business.csproj"
+            "C:\\Users\\ASUS\\Desktop\\survey\\survey.business\\survey.business.csproj": {
+              "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.business\\survey.business.csproj"
             },
-            "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj": {
-              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey-api-repository-pattern\\survey.entity\\survey.entity.csproj"
+            "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj": {
+              "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj"
             }
           }
         }
@@ -5785,7 +5785,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.209\\RuntimeIdentifierGraph.json"
       }
     }
   }

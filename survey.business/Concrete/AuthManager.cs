@@ -19,7 +19,7 @@ namespace survey.business.Concrete
         public async Task<User> Create(User user, string password)
         {
             var createdUser = new User();
-            createdUser = await _unitOfWork.Users.CreateUser(user, password);
+            createdUser = await _unitOfWork.Users.Register(user, password);
             await _unitOfWork.SaveAsync();
             return createdUser;
         }
@@ -52,15 +52,15 @@ namespace survey.business.Concrete
             return await _unitOfWork.Users.GetById(id);
         }
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string username, string password)
         {
-            var user = await _unitOfWork.Users.Login(email, password);
+            var user = await _unitOfWork.Users.Login(username, password);
             return user;
         }
 
-        public async Task<bool> UserExists(string email)
+        public async Task<bool> UserExists(string username)
         {
-            return await _unitOfWork.Users.UserExists(email);
+            return await _unitOfWork.Users.UserExists(username);
         }
     }
 }
