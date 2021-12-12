@@ -21,6 +21,7 @@ export default function Login() {
         axios
           .post("/auth/login", userData)
           .then((res) => {
+            console.log(res.data);
             dispatch({type:'LOGIN', payload: res.data})
           })
           .catch((err) => {
@@ -31,7 +32,7 @@ export default function Login() {
     const submitLogin = (e) => {
         e.preventDefault();
         login(userData);
-        window.location.href ='/';
+        window.history.pushState('/', userData);
     }
 
   return (

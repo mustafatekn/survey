@@ -15,10 +15,18 @@ namespace survey.business.Concrete
             _unitOfWork = unitOfWork;
         }
 
+        public Task<bool> CategoryExists(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Category> Create(Category category)
         {
-            var createdCategory = await _unitOfWork.Categories.Create(category);
-            await _unitOfWork.SaveAsync();
+            if (!await _unitOfWork.Categories.CategoryExists(category.Name))
+            {
+                var createdCategory = await _unitOfWork.Categories.Create(category);
+                await _unitOfWork.SaveAsync();
+            }
             return (category);
         }
 

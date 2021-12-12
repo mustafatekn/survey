@@ -10,7 +10,7 @@ using survey.data.Concrete;
 namespace survey.data.Migrations
 {
     [DbContext(typeof(SurveyContext))]
-    [Migration("20211210202054_InitialCreate")]
+    [Migration("20211212115857_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

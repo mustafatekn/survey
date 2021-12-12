@@ -16,3 +16,10 @@
 .categoryList {
   cursor: pointer;
 }
+
+#sidebar{
+  position: fixed;
+  left:0;
+  height:100%;
+  width:inherit;
+}

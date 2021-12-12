@@ -5,7 +5,7 @@ import { Container } from "reactstrap";
 export default function survey() {
   return (
     <div>
-      <Container>
+      <Container fluid>
         <Surveys />
       </Container>
     </div>

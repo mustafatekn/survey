@@ -10,7 +10,7 @@ import {
 
 export default function NavigationBar() {
   return (
-    <Navbar color="light" expand="md" light>
+    <Navbar color="light" expand="md" light fixed="top">
       <Link to="/" className="navbar-brand">
         Navbar
       </Link>
@@ -35,6 +35,11 @@ export default function NavigationBar() {
           <NavItem>
             <Link to="/auth/login" className="nav-link">
               Login
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/admin" className="nav-link">
+              Admin Page
             </Link>
           </NavItem>
         </Nav>

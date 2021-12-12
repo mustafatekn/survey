@@ -21,7 +21,7 @@ if(token){
 const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem('token',action.payload.token)
+      localStorage.setItem('token',`Bearer ${action.payload.token}`);
       return {
         ...state,
         user: action.payload,

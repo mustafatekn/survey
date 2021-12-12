@@ -10,5 +10,6 @@ namespace survey.business.Abstract
         Task<Category> Delete(Category category);
         Task<Category> GetById(int id);
         Task<List<Category>> GetAll();
+        Task<bool> CategoryExists(string name);
     }
 }
