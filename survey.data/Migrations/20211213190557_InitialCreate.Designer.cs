@@ -10,7 +10,7 @@ using survey.data.Concrete;
 namespace survey.data.Migrations
 {
     [DbContext(typeof(SurveyContext))]
-    [Migration("20211212115857_InitialCreate")]
+    [Migration("20211213190557_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,9 @@ namespace survey.data.Migrations
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()

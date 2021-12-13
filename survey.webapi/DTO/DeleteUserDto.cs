@@ -2,6 +2,7 @@ namespace survey.webapi.DTO
 {
     public class DeleteUserDto
     {
-        public string Email { get; set; }
+        public int Id { get; set; }
+        public int CurrentUserId { get; set; }
     }
 }

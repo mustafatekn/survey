@@ -1,8 +1,8 @@
 namespace survey.webapi.DTO
 {
-    public class CreateCategoryDto
+    public class DeleteCategoryDto
     {
+        public int Id { get; set; }
         public int CurrentUserId { get; set; }
-        public string Name { get; set; }
     }
 }

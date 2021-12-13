@@ -14,6 +14,7 @@ namespace survey.webapi.DTO
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public EnumRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

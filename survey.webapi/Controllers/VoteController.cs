@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using survey.business.Abstract;
 using survey.entity;
@@ -21,6 +22,7 @@ namespace survey.webapi.Controllers
             _surveyService = surveyService;
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Vote([FromBody] CreateVoteDto createVoteDto)
         {
             if (createVoteDto.ChoiceId > 0 && createVoteDto.SurveyId > 0)

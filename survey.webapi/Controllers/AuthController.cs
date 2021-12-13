@@ -78,7 +78,8 @@ namespace survey.webapi.Controllers
             var newUser = new User
             {
                 Username = userRegisterDto.Username,
-                Email = userRegisterDto.Email
+                Email = userRegisterDto.Email,
+                Role = EnumRole.User
             };
             var createdUser = await _authService.Create(newUser, userRegisterDto.Password);
             return StatusCode(201, newUser);
@@ -127,18 +128,27 @@ namespace survey.webapi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserDto deleteUserDto)
         {
-            var user = await _authService.GetByEmail(deleteUserDto.Email);
-
-            if (user == null)
+            var currentUser = await _authService.GetById(deleteUserDto.CurrentUserId);
+            if (currentUser.Role != EnumRole.Admin)
             {
-                return NotFound();
+                return Unauthorized();
             }
             else
             {
-                var deletedUser = await _authService.Delete(user);
-                return StatusCode(200, deletedUser.Email);
+                var user = await _authService.GetById(deleteUserDto.Id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var deletedUser = await _authService.Delete(user);
+                    return StatusCode(200, deletedUser.Email);
+                }
             }
         }
 
@@ -164,7 +174,8 @@ namespace survey.webapi.Controllers
                 Email = user.Email,
                 CreatedAt = user.CreatedAt,
                 Username = user.Username,
-                Token = token
+                Token = token,
+                Role = user.Role
             };
         }
 
