@@ -1,10 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
-import { useAuthState } from "../context/auth";
+import {
+  Navbar,
+  NavbarToggler,
+  Collapse,
+  Nav,
+  NavItem,
+  Button,
+} from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import { useAuthState, useAuthDispatch } from "../context/auth";
+import roleStatement from "../util/roleStatement";
 
 export default function NavigationBar() {
   const { user } = useAuthState();
+  const authDispatch = useAuthDispatch();
+  let navigate = useNavigate();
+  const logout = (e) => {
+    if (roleStatement(user) !== "unAuthenticated") {
+      authDispatch({ type: "LOGOUT" });
+      navigate("/");
+    }
+  };
 
   const unAuthenticatedNavbarMarkup = (
     <Navbar color="light" expand="md" light fixed="top">
@@ -57,12 +74,17 @@ export default function NavigationBar() {
               Surveys
             </Link>
           </NavItem>
+          <NavItem>
+            <Button type="button" size="sm" onClick={() => logout()}>
+              Logout
+            </Button>
+          </NavItem>
         </Nav>
       </Collapse>
     </Navbar>
   );
 
-  const adminNavbar = (
+  const adminNavbarMarkup = (
     <Navbar color="light" expand="md" light fixed="top">
       <Link to="/" className="navbar-brand">
         Navbar
@@ -85,17 +107,22 @@ export default function NavigationBar() {
               Admin Page
             </Link>
           </NavItem>
+          <NavItem>
+            <Button type="button" size="sm" onClick={() => logout()}>
+              Logout
+            </Button>
+          </NavItem>
         </Nav>
       </Collapse>
     </Navbar>
-  )
-  if(!user){
+  );
+
+  const roleState = roleStatement(user);
+  if (roleState === "unAuthenticated") {
     return unAuthenticatedNavbarMarkup;
-  }else{
-    if(user.role === 2 || user.role === 3){
-      return adminNavbar;
-    }else{
-      return authenticatedNavbarMarkup;
-    }
+  } else if (roleState === "authenticated") {
+    return authenticatedNavbarMarkup;
+  } else if (roleState === "admin") {
+    return adminNavbarMarkup;
   }
 }

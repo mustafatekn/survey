@@ -7,16 +7,16 @@ import Register from "../pages/register";
 import Login from "../pages/login";
 import Admin from "../pages/admin";
 import AdminCategories from "../pages/adminCategories";
-
+import roleStatement from "./roleStatement";
 export default function Router() {
     const {user} = useAuthState();
   return (
     <Routes>
-      <Route path="/auth/login" element={user ? <Navigate to="/"/> : <Login/>} />
-      <Route path="/auth/register" element={user ? <Navigate to="/"/> : <Register />} />
+      <Route path="/auth/login" element={roleStatement(user)==='unAuthenticated' ? <Login/> : <Navigate to="/"/>} />
+      <Route path="/auth/register" element={roleStatement(user)==='unAuthenticated' ? <Register /> : <Navigate to="/"/>} />
       <Route path="/survey" element={<Survey />} />
-      <Route path="/admin" element={user && (user.role===2 || user.role===3) ? <Admin /> : <Navigate to="/"/>} />   
-      <Route path="/admin/categories" element={user && (user.role===2 || user.role===3) ? <AdminCategories /> : <Navigate to="/"/>} />
+      <Route path="/admin" element={roleStatement(user)==='admin' ? <Admin /> : <Navigate to="/"/>} />   
+      <Route path="/admin/categories" element={roleStatement(user)==='admin' ? <AdminCategories /> : <Navigate to="/"/>} />
       <Route exact path="/" element={<Home />} />
     </Routes>
   );

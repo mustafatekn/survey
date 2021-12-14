@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {Nav, NavItem} from 'reactstrap'
+import { Nav, NavItem } from "reactstrap";
 export default function AdminSidebar() {
   return (
     <div className="bg-dark p-3" id="sidebar">

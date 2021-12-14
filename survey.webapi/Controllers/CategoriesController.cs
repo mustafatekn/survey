@@ -38,50 +38,34 @@ namespace survey.webapi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
         {
-            var currentUser = await _authService.GetById(createCategoryDto.CurrentUserId);
-            if (currentUser.Role != EnumRole.Admin || currentUser.Role != EnumRole.Editor)
+            if (string.IsNullOrEmpty(createCategoryDto.Name))
             {
-                return Unauthorized();
+                return BadRequest();
             }
             else
             {
-                if (string.IsNullOrEmpty(createCategoryDto.Name))
+                var category = new Category
                 {
-                    return BadRequest();
-                }
-                else
-                {
-                    var category = new Category
-                    {
-                        Name = createCategoryDto.Name
-                    };
-                    var createdCategory = await _categoryService.Create(category);
-                    return StatusCode(201, createdCategory);
-                }
+                    Name = createCategoryDto.Name
+                };
+                var createdCategory = await _categoryService.Create(category);
+                return StatusCode(201, createdCategory);
             }
         }
 
         [HttpDelete]
         [Authorize]
-        public async Task<IActionResult> DeleteCategory([FromBody] DeleteCategoryDto deleteCategoryDto)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var currentUser = await _authService.GetById(deleteCategoryDto.CurrentUserId);
-            if (currentUser.Role != EnumRole.Admin || currentUser.Role != EnumRole.Editor)
+            if (id < 1)
             {
-                return Unauthorized();
+                return BadRequest();
             }
             else
             {
-                if (deleteCategoryDto.Id <= 0)
-                {
-                    return BadRequest();
-                }
-                else
-                {
-                    var category = await _categoryService.GetById(deleteCategoryDto.Id);
-                    var deletedCategory = await _categoryService.Delete(category);
-                    return StatusCode(200, deletedCategory);
-                }
+                var category = await _categoryService.GetById(id);
+                var deletedCategory = await _categoryService.Delete(category);
+                return StatusCode(200, deletedCategory);
             }
         }
     }

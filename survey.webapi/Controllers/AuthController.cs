@@ -79,7 +79,7 @@ namespace survey.webapi.Controllers
             {
                 Username = userRegisterDto.Username,
                 Email = userRegisterDto.Email,
-                Role = EnumRole.User
+                Role = EnumRole.Member
             };
             var createdUser = await _authService.Create(newUser, userRegisterDto.Password);
             return StatusCode(201, newUser);
@@ -116,7 +116,8 @@ namespace survey.webapi.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]{
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Email)
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim("roleFromToken",user.Role.ToString())
                 }),
                 Expires = DateTime.Now.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512)

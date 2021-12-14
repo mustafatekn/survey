@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useAuthDispatch } from "../context/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [userData, setUserData] = useState({
@@ -16,12 +17,12 @@ export default function Login() {
         password: ""
       });
       const dispatch = useAuthDispatch();
-      
+      let navigate = useNavigate();
       const login = (userData) => {
         axios
           .post("/auth/login", userData)
           .then((res) => {
-            console.log(res.data);
+            console.log(res.data.role);
             dispatch({type:'LOGIN', payload: res.data})
           })
           .catch((err) => {
@@ -32,7 +33,7 @@ export default function Login() {
     const submitLogin = (e) => {
         e.preventDefault();
         login(userData);
-        window.history.pushState('/', userData);
+        navigate('/');
     }
 
   return (

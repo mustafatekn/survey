@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function Register() {
   const [newUser, setNewUser] = useState({
     username: "",
@@ -9,23 +9,27 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   });
-
+  
+  let navigate = useNavigate();
   const register = (newUser) => {
-    axios.post('/auth/register',newUser).then(res => {
-      window.location.href="/";
-    }).catch(err => {
-      console.log(err);
-    })
+    axios
+      .post("/auth/register", newUser)
+      .then((res) => {
+        navigate("/auth/login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const submitRegister = (e) => {
     e.preventDefault();
     register(newUser);
-  }
+  };
 
   return (
     <Container>
-      <Form 
+      <Form
         className="w-50 mx-auto mt-5 px-5"
         onSubmit={submitRegister}
         method="POST"

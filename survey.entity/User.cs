@@ -15,8 +15,7 @@ namespace survey.entity
 
     public enum EnumRole
     {
-        User = 1,
-        Editor = 2,
-        Admin = 3,
+        Member = 10,
+        Admin = 20,
     }
 }
