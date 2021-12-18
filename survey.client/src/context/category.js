@@ -13,14 +13,16 @@ const categoryReducer = (state, action) => {
     case "ADD_CATEGORY":
       return {
         ...state,
-        categories: [...state.categories, action.payload]
-      }
+        categories: [...state.categories, action.payload],
+      };
     case "REMOVE_CATEGORY":
-      var index = state.categories.findIndex(category => category.id === action.payload);
-      state.categories.splice(index,1);
+      var index = state.categories.findIndex(
+        (category) => category.id === action.payload
+      );
+      state.categories.splice(index, 1);
       return {
-        ...state
-      }
+        ...state,
+      };
     case "CHANGE_CATEGORY":
       return {
         ...state,

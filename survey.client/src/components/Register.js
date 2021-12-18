@@ -9,7 +9,7 @@ export default function Register() {
     password: "",
     confirmPassword: "",
   });
-  
+
   let navigate = useNavigate();
   const register = (newUser) => {
     axios

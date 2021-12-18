@@ -1,21 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Navbar,
-  NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem
-} from "reactstrap";
+import { Navbar, NavbarToggler, Collapse, Nav, NavItem } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { useAuthState, useAuthDispatch } from "../context/auth";
-import roleStatement from "../util/roleStatement";
+import { useAuthState, useAuthDispatch } from "../../context/auth";
+import roleStatement from "../../util/roleStatement";
 
 export default function NavigationBar() {
   const { user } = useAuthState();
   const authDispatch = useAuthDispatch();
   let navigate = useNavigate();
-  const logout = (e) => {
+
+  const logout = () => {
     if (roleStatement(user) !== "unAuthenticated") {
       authDispatch({ type: "LOGOUT" });
       navigate("/");
@@ -31,7 +26,7 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/survey" className="nav-link">
+            <Link to="/discover" className="nav-link">
               Discover
             </Link>
           </NavItem>
@@ -59,13 +54,18 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/survey" className="nav-link">
+            <Link to="/discover" className="nav-link">
               Discover
             </Link>
           </NavItem>
           <NavItem>
             <Link to="" className="nav-link" size="sm" onClick={() => logout()}>
               Logout
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/profile" className="nav-link">
+              Profile
             </Link>
           </NavItem>
         </Nav>
@@ -82,7 +82,7 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/survey" className="nav-link">
+            <Link to="/discover" className="nav-link">
               Discover
             </Link>
           </NavItem>
@@ -92,8 +92,13 @@ export default function NavigationBar() {
             </Link>
           </NavItem>
           <NavItem>
-          <Link to="" className="nav-link" onClick={() => logout()}>
+            <Link to="" className="nav-link" onClick={() => logout()}>
               Logout
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to={`/user/${user.username}`} className="nav-link">
+              Profile
             </Link>
           </NavItem>
         </Nav>
@@ -101,12 +106,11 @@ export default function NavigationBar() {
     </Navbar>
   );
 
-  const roleState = roleStatement(user);
-  if (roleState === "unAuthenticated") {
-    return unAuthenticatedNavbarMarkup;
-  } else if (roleState === "authenticated") {
-    return authenticatedNavbarMarkup;
-  } else if (roleState === "admin") {
+  if (roleStatement(user) === "admin") {
     return adminNavbarMarkup;
+  } else if (roleStatement(user) === "authenticated") {
+    return authenticatedNavbarMarkup;
+  } else if (roleStatement(user) === "unAuthenticated") {
+    return unAuthenticatedNavbarMarkup;
   }
 }

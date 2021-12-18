@@ -25,15 +25,10 @@ namespace survey.webapi.Controllers
         [Authorize]
         public async Task<IActionResult> Vote([FromBody] CreateVoteDto createVoteDto)
         {
-            if (createVoteDto.ChoiceId > 0 && createVoteDto.SurveyId > 0)
-            {
-                await _voteService.Vote(createVoteDto.ChoiceId, createVoteDto.SurveyId);
-                return StatusCode(201);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            if (createVoteDto.ChoiceId < 0 && createVoteDto.SurveyId < 0) return BadRequest();
+
+            await _voteService.Vote(createVoteDto.ChoiceId, createVoteDto.SurveyId);
+            return StatusCode(201);
         }
     }
 }

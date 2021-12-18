@@ -1,6 +1,32 @@
 import React from "react";
 import { Button } from "reactstrap";
-export default function AdminSurvey({ survey }) {
+import axios from 'axios'
+import roleStatement from "../../util/roleStatement";
+import { useAuthState } from "../../context/auth";
+import { useSurveyDispatch } from "../../context/survey";
+
+export default function AdminSurvey({ survey, getDiscoverSurveys }) {
+  const { user } = useAuthState();
+  const dispatch = useSurveyDispatch();
+
+  const removeDiscoverSurvey = (id) => {
+    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
+
+    axios
+      .delete(`/surveys/?id=${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        dispatch({ type: "REMOVE_DISCOVER_SURVEY", payload: res.data });
+        getDiscoverSurveys();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <tr>
       <td>{survey.id}</td>
@@ -16,6 +42,17 @@ export default function AdminSurvey({ survey }) {
             {choice.name}
           </Button>
         ))}
+      </td>
+
+      <td>
+        <Button
+          size="sm"
+          color="danger"
+          type="button"
+          onClick={() => removeDiscoverSurvey(survey.id)}
+        >
+          Remove
+        </Button>
       </td>
     </tr>
   );

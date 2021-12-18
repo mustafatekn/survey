@@ -24,49 +24,34 @@ namespace survey.webapi.Controllers
         public async Task<IActionResult> GetCategories()
         {
             var categories = await _categoryService.GetAll();
-            if (categories == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode(201, categories);
-            }
-
+            if (categories == null) return NotFound();
+            return StatusCode(201, categories);
         }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto createCategoryDto)
         {
-            if (string.IsNullOrEmpty(createCategoryDto.Name))
+            if (string.IsNullOrEmpty(createCategoryDto.Name)) return BadRequest();
+            
+            var category = new Category
             {
-                return BadRequest();
-            }
-            else
-            {
-                var category = new Category
-                {
-                    Name = createCategoryDto.Name
-                };
-                var createdCategory = await _categoryService.Create(category);
-                return StatusCode(201, createdCategory);
-            }
+                Name = createCategoryDto.Name
+            };
+            var createdCategory = await _categoryService.Create(category);
+            return StatusCode(201, createdCategory);
         }
 
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            if (id < 1)
-            {
-                return BadRequest();
-            }
-            else
-            {
-                var category = await _categoryService.GetById(id);
-                var deletedCategory = await _categoryService.Delete(category);
-                return StatusCode(200, deletedCategory);
-            }
+            if (id < 1) return BadRequest();
+            var category = await _categoryService.GetById(id);
+            if (category == null) return NotFound();
+            var deletedCategory = await _categoryService.Delete(category);
+            return StatusCode(200, deletedCategory);
+
         }
     }
 }

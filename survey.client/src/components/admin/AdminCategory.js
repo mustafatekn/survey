@@ -3,26 +3,26 @@ import { Button } from "reactstrap";
 import axios from "axios";
 import { useAuthState } from "../../context/auth";
 import { useCategoryDispatch } from "../../context/category";
+import roleStatement from "../../util/roleStatement";
 
 export default function AdminCategory({ category, getCategories }) {
   const { user } = useAuthState();
   const dispatch = useCategoryDispatch();
   const deleteCategory = (id) => {
-    if (user) {
-      axios
-        .delete(`/categories/?id=${id}`, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          dispatch({ type: "REMOVE_CATEGORY", payload: res.data.id });
-          getCategories();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
+    axios
+      .delete(`/categories/?id=${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        dispatch({ type: "REMOVE_CATEGORY", payload: res.data.id });
+        getCategories();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

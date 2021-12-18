@@ -18,12 +18,12 @@ namespace survey.data.Concrete
             get { return context as SurveyContext; }
         }
 
-        public async Task<List<Survey>> GetAdministrationSurveys()
+        public async Task<List<Survey>> GetDiscoverSurveys()
         {
             return await SurveyContext.Surveys.Where(s => s.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
         }
 
-        public async Task<List<Survey>> GetAdministrationSurveysByCategory(int categoryId)
+        public async Task<List<Survey>> GetDiscoverSurveysByCategory(int categoryId)
         {
             return await SurveyContext.Surveys.Where(i => i.Category.Id == categoryId && i.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
         }

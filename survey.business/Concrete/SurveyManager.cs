@@ -46,14 +46,14 @@ namespace survey.business.Concrete
             return await _unitOfWork.Surveys.GetById(id);
         }
 
-        public async Task<List<Survey>> GetAdministrationSurveys()
+        public async Task<List<Survey>> GetDiscoverSurveys()
         {
-            return await _unitOfWork.Surveys.GetAdministrationSurveys();
+            return await _unitOfWork.Surveys.GetDiscoverSurveys();
         }
 
-        public async Task<List<Survey>> GetAdministrationSurveysByCategory(int categoryId)
+        public async Task<List<Survey>> GetDiscoverSurveysByCategory(int categoryId)
         {
-            return await _unitOfWork.Surveys.GetAdministrationSurveysByCategory(categoryId);
+            return await _unitOfWork.Surveys.GetDiscoverSurveysByCategory(categoryId);
         }
 
         public async Task<List<Survey>> GetSurveysWithAllData()

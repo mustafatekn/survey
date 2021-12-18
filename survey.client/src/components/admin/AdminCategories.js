@@ -12,39 +12,33 @@ export default function AdminCategories() {
   const dispatch = useCategoryDispatch();
   const { user } = useAuthState();
   const getCategories = () => {
-    if (roleStatement(user) !== "admin") {
-      throw new Error("Unauthorized");
-    } else {
-      axios
-        .get("/categories")
-        .then((res) => {
-          dispatch({ type: "SET_CATEGORIES", payload: res.data });
-          setCategories(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
+    axios
+      .get("/categories")
+      .then((res) => {
+        dispatch({ type: "SET_CATEGORIES", payload: res.data });
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const addNewCategory = (category) => {
-    if (roleStatement(user) !== "admin") {
-      throw new Error("Unauthorized");
-    } else {
-      axios
-        .post("/categories", category, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          dispatch({ type: "ADD_CATEGORY", payload: res.data });
-          getCategories();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
+    axios
+      .post("/categories", category, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        dispatch({ type: "ADD_CATEGORY", payload: res.data });
+        getCategories();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const submitNewCategory = (e) => {
@@ -58,10 +52,7 @@ export default function AdminCategories() {
 
   return (
     <div className="p-4">
-      <Form
-        method="POST"
-        onSubmit={submitNewCategory}
-      >
+      <Form method="POST" onSubmit={submitNewCategory}>
         <h5>Add a category</h5>
         <FormGroup>
           <Label for="categoryNameInput">Category Name</Label>

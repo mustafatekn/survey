@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../components/admin/Sidebar";
+import Sidebar from "../../components/layout/Sidebar";
 import { Row, Col } from "reactstrap";
 import AdminCategories from "../../components/admin/AdminCategories";
 

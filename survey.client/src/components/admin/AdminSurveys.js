@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSurveyDispatch } from "../../context/survey";
-import { Table, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import PostAdminSurvey from "./PostAdminSurvey";
+import { Table } from "reactstrap";
+import PostDiscoverSurvey from "./PostDiscoverSurvey";
 import AdminSurvey from "./AdminSurvey";
 
 export default function AdminSurveys() {
   const [surveys, setSurveys] = useState([]);
   const dispatch = useSurveyDispatch();
 
-  const getAdministrationSurveys = (category) => {
+  const getDiscoverSurveys = (category) => {
     if (category && category.id !== 0) {
       axios
-        .get(`/surveys/administration/category/?categoryId=${category.id}`)
+        .get(`/surveys/discover/category/?categoryId=${category.id}`)
         .then((res) => {
           setSurveys(res.data);
-          dispatch({ type: "SET_SURVEYS", payload: res.data });
+          dispatch({ type: "SET_DISCOVER_SURVEYS", payload: res.data });
         });
     } else {
       axios
-        .get("/surveys/administration")
+        .get("/surveys/discover")
         .then((res) => {
           setSurveys(res.data);
-          dispatch({ type: "SET_SURVEYS", payload: res.data });
+          dispatch({ type: "SET_DISCOVER_SURVEYS", payload: res.data });
         })
         .catch((err) => {
           console.log(err);
@@ -31,12 +31,16 @@ export default function AdminSurveys() {
   };
 
   useEffect(() => {
-    getAdministrationSurveys();
+    getDiscoverSurveys();
   }, []);
 
   return (
     <div>
-      <PostAdminSurvey setSurveys={setSurveys} surveys={surveys} />
+      <PostDiscoverSurvey
+        setSurveys={setSurveys}
+        surveys={surveys}
+        getDiscoverSurveys={getDiscoverSurveys}
+      />
       <Table borderless hover responsive>
         <thead>
           <tr>
@@ -52,7 +56,11 @@ export default function AdminSurveys() {
         </thead>
         <tbody>
           {surveys.map((survey) => (
-            <AdminSurvey key={survey.id} survey={survey} />
+            <AdminSurvey
+              key={survey.id}
+              survey={survey}
+              getDiscoverSurveys={getDiscoverSurveys}
+            />
           ))}
         </tbody>
       </Table>

@@ -29,45 +29,27 @@ namespace survey.webapi.Controllers
         public async Task<IActionResult> GetSurveys()
         {
             var surveys = await _surveyService.GetSurveysWithAllData();
-            if (surveys == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(surveys);
-            }
+            if (surveys == null) return NotFound();
+            return Ok(surveys);
 
         }
 
         [HttpGet]
-        [Route("administration/category")]
-        public async Task<IActionResult> GetAdministrationSurveysByCategory(int categoryId)
+        [Route("discover/category")]
+        public async Task<IActionResult> GetDiscoverSurveysByCategory(int categoryId)
         {
-            var surveys = await _surveyService.GetAdministrationSurveysByCategory(categoryId);
-            if (surveys == null)
-            {
-                return NotFound(categoryId);
-            }
-            else
-            {
-                return StatusCode(200, surveys);
-            }
+            var surveys = await _surveyService.GetDiscoverSurveysByCategory(categoryId);
+            if (surveys == null) return NotFound(categoryId);
+            return StatusCode(200, surveys);
         }
 
         [HttpGet]
-        [Route("administration")]
-        public async Task<IActionResult> GetAdministrationSurveys()
+        [Route("discover")]
+        public async Task<IActionResult> GetDiscoverSurveys()
         {
-            var surveys = await _surveyService.GetAdministrationSurveys();
-            if (surveys == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode(200, surveys);
-            }
+            var surveys = await _surveyService.GetDiscoverSurveys();
+            if (surveys == null) return NotFound();
+            return StatusCode(200, surveys);
         }
 
         [HttpPost]
@@ -76,51 +58,47 @@ namespace survey.webapi.Controllers
         {
             var category = new Category();
             var user = new User();
-            if (createSurveyDto.CategoryId < 1 && createSurveyDto.Description == null && createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null)
+            if (createSurveyDto.CategoryId < 1 && createSurveyDto.Description == null
+            && createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null) return BadRequest();
+
+            category = await _categoryService.GetById(createSurveyDto.CategoryId);
+            if (category == null) return NotFound();
+
+            user = await _authService.GetById(createSurveyDto.UserId);
+            if (user == null) return NotFound();
+
+            var survey = new Survey
             {
-                return BadRequest();
-            }
-            else
+                Category = category,
+                Question = createSurveyDto.Question,
+                CreatedAt = createSurveyDto.CreatedAt,
+                Description = createSurveyDto.Description,
+                ImageUrl = createSurveyDto.ImageUrl,
+                Url = CreateUrl(createSurveyDto.Question),
+                User = user
+            };
+
+            var createdSurvey = await _surveyService.Create(survey);
+            foreach (var choiceName in createSurveyDto.ChoiceNames)
             {
-                category = await _categoryService.GetById(createSurveyDto.CategoryId);
-                user = await _authService.GetById(createSurveyDto.UserId);
-                var survey = new Survey
+                var choice = new Choice
                 {
-                    Category = category,
-                    Question = createSurveyDto.Question,
-                    CreatedAt = createSurveyDto.CreatedAt,
-                    Description = createSurveyDto.Description,
-                    ImageUrl = createSurveyDto.ImageUrl,
-                    Url = CreateUrl(createSurveyDto.Question),
-                    User = user
+                    Name = choiceName,
+                    SurveyId = createdSurvey.Id
                 };
-                var createdSurvey = await _surveyService.Create(survey);
-                foreach (var choiceName in createSurveyDto.ChoiceNames)
-                {
-                    var choice = new Choice
-                    {
-                        Name = choiceName,
-                        SurveyId = createdSurvey.Id
-                    };
-                    await _choiceService.Create(choice);
-                };
-                return StatusCode(201, SurveyToDto(survey));
-            }
+                await _choiceService.Create(choice);
+            };
+            return StatusCode(201, SurveyToDto(survey));
         }
         [HttpDelete]
         [Authorize]
-        public async Task<IActionResult> DeleteSurvey(int surveyId)
+        public async Task<IActionResult> DeleteSurvey(int id)
         {
-            var survey = await _surveyService.GetById(surveyId);
-            if (survey == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                var deletedSurvey = await _surveyService.Delete(survey);
-                return StatusCode(200, deletedSurvey);
-            }
+            if (id < 1) return BadRequest();
+            var survey = await _surveyService.GetById(id);
+            if (survey == null) return NotFound();
+            var deletedSurvey = await _surveyService.Delete(survey);
+            return StatusCode(200, deletedSurvey);
         }
 
         private static string CreateUrl(string question)
@@ -129,11 +107,8 @@ namespace survey.webapi.Controllers
             var url = "";
             for (int i = 0; i < words.Length; i++)
             {
-                if(words[i]!=words[words.Length-1]){
-                    url += words[i] +"-";
-                }else{
-                    url += words[i];
-                }                
+                if (words[i] != words[words.Length - 1]) url += words[i] + "-";
+                url += words[i];
             }
             return url;
         }

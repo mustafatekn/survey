@@ -3,11 +3,15 @@ import { Form, FormGroup, Input, Label, Button, Row, Col } from "reactstrap";
 import axios from "axios";
 import { useCategoryDispatch } from "../../context/category";
 import { useSurveyDispatch } from "../../context/survey";
-import ChoiceInput from "../ChoiceInput";
+import ChoiceInput from "../layout/ChoiceInput";
 import { useAuthState } from "../../context/auth";
 import roleStatement from "../../util/roleStatement";
 
-export default function PostAdminSurvey({ setSurveys, surveys }) {
+export default function PostDiscoverSurvey({
+  setSurveys,
+  surveys,
+  getDiscoverSurveys,
+}) {
   const { user } = useAuthState();
   const [survey, setSurvey] = useState({
     question: "",
@@ -19,10 +23,11 @@ export default function PostAdminSurvey({ setSurveys, surveys }) {
   });
   const [choices] = useState([]);
   const [categories, setCategories] = useState([]);
-
   let [choiceInputQuantity, setChoiceInputQuantity] = useState(0);
+
   const dispatchCategory = useCategoryDispatch();
   const dispatchSurvey = useSurveyDispatch();
+
   const getCategories = () => {
     axios
       .get("/categories")
@@ -47,25 +52,24 @@ export default function PostAdminSurvey({ setSurveys, surveys }) {
   };
 
   const postSurvey = (e) => {
-    if (roleStatement(user) === "admin") {
-      e.preventDefault();
-      setChoices();
-      survey.choiceNames = choices;
-      axios
-        .post("/surveys", survey, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        })
-        .then((res) => {
-          dispatchSurvey({ type: "CREATE_ADMIN_SURVEY", payload: res.data });
-          setSurveys([...surveys, res.data]);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
+    e.preventDefault();
+    setChoices();
+    survey.choiceNames = choices;
+    axios
+      .post("/surveys", survey, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        dispatchSurvey({ type: "CREATE_DISCOVER_SURVEY", payload: res.data });
+        setSurveys([...surveys, res.data]);
+        getDiscoverSurveys();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {

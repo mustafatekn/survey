@@ -5,10 +5,10 @@ const SurveyDispatchContext = createContext();
 
 const surveyReducer = (state, action) => {
   switch (action.type) {
-    case "SET_SURVEYS":
+    case "SET_DISCOVER_SURVEYS":
       return {
         ...state,
-        surveys: action.payload,
+        discoverSurveys: action.payload,
       };
     case "SET_CATEGORIES":
       return {
@@ -20,10 +20,18 @@ const surveyReducer = (state, action) => {
         ...state,
         currentCategory: action.payload,
       };
-    case "CREATE_ADMIN_SURVEY":
+    case "CREATE_DISCOVER_SURVEY":
       return {
         ...state,
-        surveys: [...state.surveys, action.payload],
+        discoverSurveys: [...state.discoverSurveys, action.payload],
+      };
+    case "REMOVE_DISCOVER_SURVEY":
+      var index = state.discoverSurveys.findIndex(
+        (survey) => survey.id === action.payload
+      );
+      state.discoverSurveys.splice(index, 1);
+      return {
+        ...state,
       };
     default:
       throw new Error(`unknown action type: ${action.type}`);

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./components/layout/NavigationBar";
 
 import { SurveyProvider } from "./context/survey";
 import { AuthProvider } from "./context/auth";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import Sidebar from "../../components/admin/Sidebar";
+import Sidebar from "../../components/layout/Sidebar";
 import AdminSurveys from "../../components/admin/AdminSurveys";
 
 export default function adminSurveys() {

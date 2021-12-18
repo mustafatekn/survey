@@ -18,22 +18,27 @@ export default function PostSurvey() {
       method="POST"
     >
       <Row>
-        <Col md={4}><h5>Post a survey!</h5></Col>
-        <Col md={8}><Button
-        type="button"
-        id="descriptionVisibilityButton"
-        size="sm"
-        className={classNames('d-block ms-auto mb-3 ',
-          descriptionVisibility ? "bg-danger" : "bg-black"
-        )}
-        onClick={toggleDescriptionVisibility}
-      >
-        {descriptionVisibility ? "Remove Description" : "Write a description"}
-      </Button></Col>
+        <Col md={4}>
+          <h5>Post a survey!</h5>
+        </Col>
+        <Col md={8}>
+          <Button
+            type="button"
+            id="descriptionVisibilityButton"
+            size="sm"
+            className={classNames(
+              "d-block ms-auto mb-3 ",
+              descriptionVisibility ? "bg-danger" : "bg-black"
+            )}
+            onClick={toggleDescriptionVisibility}
+          >
+            {descriptionVisibility
+              ? "Remove Description"
+              : "Write a description"}
+          </Button>
+        </Col>
       </Row>
-      
-      
-      
+
       <FormGroup>
         <Label for="questionInput">Question</Label>
         <Input id="questionInput" name="question" type="text" />
@@ -43,7 +48,7 @@ export default function PostSurvey() {
         className={classNames(descriptionVisibility ? "d-block" : "d-none")}
       >
         <Label for="descriptionInput">Description</Label>
-        <Input id="descriptionInput" name="description" type="text"/>
+        <Input id="descriptionInput" name="description" type="text" />
       </FormGroup>
 
       <Button type="submit" className="w-100">

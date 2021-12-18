@@ -18,21 +18,6 @@ export default function AdminSidebar() {
             Surveys
           </Link>
         </NavItem>
-        <NavItem>
-          <Link to="/auth/register" className="nav-link text-white">
-            Register
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/auth/login" className="nav-link text-white">
-            Login
-          </Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/admin" className="nav-link text-white">
-            Admin Page
-          </Link>
-        </NavItem>
       </Nav>
       <hr />
     </div>

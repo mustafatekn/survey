@@ -4,7 +4,7 @@ import { useSurveyDispatch } from "../context/survey";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import classnames from "classnames";
 
-export default function Categories({ getAdministrationSurveys }) {
+export default function Categories({ getDiscoverSurveys }) {
   const [categoryList, setCategoryList] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
   const dispatch = useSurveyDispatch();
@@ -27,7 +27,7 @@ export default function Categories({ getAdministrationSurveys }) {
 
   const changeCategory = (category) => {
     dispatch({ type: "CHANGE_CATEGORY", payload: category });
-    getAdministrationSurveys(category);
+    getDiscoverSurveys(category);
   };
 
   useEffect(() => {
