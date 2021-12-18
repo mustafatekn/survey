@@ -7,20 +7,25 @@ using survey.entity;
 
 namespace survey.data.Concrete
 {
-    public class EfCoreSurveyRepository:EfCoreGenericRepository<Survey>, ISurveyRepository
+    public class EfCoreSurveyRepository : EfCoreGenericRepository<Survey>, ISurveyRepository
     {
-        public EfCoreSurveyRepository(SurveyContext context): base(context)
+        public EfCoreSurveyRepository(SurveyContext context) : base(context)
         {
-            
+
         }
         private SurveyContext SurveyContext
         {
-            get {return context as SurveyContext; }
+            get { return context as SurveyContext; }
         }
 
-        public async Task<List<Survey>> GetSurveysByCategory(int categoryId)
+        public async Task<List<Survey>> GetAdministrationSurveys()
         {
-            return await SurveyContext.Surveys.Where(i => i.CategoryId == categoryId).ToListAsync();
+            return await SurveyContext.Surveys.Where(s => s.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
+        }
+
+        public async Task<List<Survey>> GetAdministrationSurveysByCategory(int categoryId)
+        {
+            return await SurveyContext.Surveys.Where(i => i.Category.Id == categoryId && i.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
         }
 
         public async Task<List<Survey>> GetSurveysWithAllData()

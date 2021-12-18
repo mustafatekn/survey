@@ -5,9 +5,10 @@ import Home from "../pages/home";
 import Survey from "../pages/survey";
 import Register from "../pages/register";
 import Login from "../pages/login";
-import Admin from "../pages/admin";
-import AdminCategories from "../pages/adminCategories";
+import Admin from "../pages/admin/admin";
+import AdminCategories from "../pages/admin/adminCategories";
 import roleStatement from "./roleStatement";
+import AdminSurveys from "../pages/admin/adminSurveys";
 export default function Router() {
     const {user} = useAuthState();
   return (
@@ -17,6 +18,7 @@ export default function Router() {
       <Route path="/survey" element={<Survey />} />
       <Route path="/admin" element={roleStatement(user)==='admin' ? <Admin /> : <Navigate to="/"/>} />   
       <Route path="/admin/categories" element={roleStatement(user)==='admin' ? <AdminCategories /> : <Navigate to="/"/>} />
+      <Route path="/admin/surveys" element={roleStatement(user)==='admin' ? <AdminSurveys /> : <Navigate to="/"/>} />
       <Route exact path="/" element={<Home />} />
     </Routes>
   );

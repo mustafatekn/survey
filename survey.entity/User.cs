@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace survey.entity
 {
@@ -9,6 +10,7 @@ namespace survey.entity
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public List<Survey> Surveys { get; set; }
         public EnumRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
     }

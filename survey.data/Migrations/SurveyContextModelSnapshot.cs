@@ -85,9 +85,14 @@ namespace survey.data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Surveys");
                 });
@@ -166,7 +171,13 @@ namespace survey.data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("survey.entity.User", "User")
+                        .WithMany("Surveys")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("survey.entity.Vote", b =>
@@ -183,6 +194,11 @@ namespace survey.data.Migrations
                     b.Navigation("Choices");
 
                     b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("survey.entity.User", b =>
+                {
+                    b.Navigation("Surveys");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,7 +22,6 @@ export default function Login() {
         axios
           .post("/auth/login", userData)
           .then((res) => {
-            console.log(res.data.role);
             dispatch({type:'LOGIN', payload: res.data})
           })
           .catch((err) => {

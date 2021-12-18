@@ -11,12 +11,11 @@ namespace survey.webapi.DTO
             CreatedAt = DateTime.Now;
         }
         public int CategoryId { get; set; }
+        public int UserId { get; set; }
         public string Question { get; set; }
         public string Description { get; set; }
-        public string Url { get; set; }
         public string ImageUrl { get; set; }
         public String[] ChoiceNames {get; set;}
         public DateTime CreatedAt { get; set; }
-
     }
 }

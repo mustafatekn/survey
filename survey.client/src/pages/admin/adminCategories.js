@@ -1,11 +1,11 @@
 import React from "react";
-import Sidebar from "../components/admin/Sidebar";
+import Sidebar from "../../components/admin/Sidebar";
 import { Row, Col } from "reactstrap";
-import AdminCategories from "../components/admin/AdminCategories";
+import AdminCategories from "../../components/admin/AdminCategories";
 
 export default function adminCategories() {
   return (
-      <Row>
+      <Row className="p-0 m-0">
         <Col md={2}>
           <Sidebar />
         </Col>

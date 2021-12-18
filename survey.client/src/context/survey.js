@@ -20,6 +20,11 @@ const surveyReducer = (state, action) => {
         ...state,
         currentCategory: action.payload,
       };
+    case "CREATE_ADMIN_SURVEY":
+      return {
+        ...state,
+        surveys: [...state.surveys, action.payload],
+      };
     default:
       throw new Error(`unknown action type: ${action.type}`);
   }

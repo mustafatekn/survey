@@ -9,7 +9,8 @@ namespace survey.business.Abstract
         Task<Survey> Create(Survey survey);
         Task<List<Survey>> GetAll();
         Task<List<Survey>> GetSurveysWithAllData();
-        Task<List<Survey>> GetSurveysByCategory(int categoryId);
+        Task<List<Survey>> GetAdministrationSurveysByCategory(int categoryId);
+        Task<List<Survey>> GetAdministrationSurveys();
         Task<Survey> GetById(int id);
         Task<Survey> Delete(Survey survey);
     }

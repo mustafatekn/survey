@@ -14,7 +14,7 @@ export default function AdminSidebar() {
           </Link>
         </NavItem>
         <NavItem>
-          <Link to="/survey" className="nav-link text-white">
+          <Link to="/admin/surveys" className="nav-link text-white">
             Surveys
           </Link>
         </NavItem>

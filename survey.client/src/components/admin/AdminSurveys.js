@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Survey from "./Survey";
-import { useSurveyDispatch } from "../context/survey";
-import Categories from "./Categories";
-import PostSurvey from "./PostSurvey";
+import { useSurveyDispatch } from "../../context/survey";
+import { Table, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import PostAdminSurvey from "./PostAdminSurvey";
+import AdminSurvey from "./AdminSurvey";
 
-export default function Surveys() {
+export default function AdminSurveys() {
   const [surveys, setSurveys] = useState([]);
   const dispatch = useSurveyDispatch();
 
@@ -36,13 +36,26 @@ export default function Surveys() {
 
   return (
     <div>
-      <div className="bg-dark py-2">
-        <Categories getAdministrationSurveys={getAdministrationSurveys} />
-      </div>
-      <PostSurvey />
-      {surveys.map((survey) => (
-        <Survey survey={survey} key={survey.id} />
-      ))}
+      <PostAdminSurvey setSurveys={setSurveys} surveys={surveys} />
+      <Table borderless hover responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Question</th>
+            <th>Description</th>
+            <th>Url</th>
+            <th>Image Url</th>
+            <th>Created At</th>
+            <th>Choices</th>
+          </tr>
+        </thead>
+        <tbody>
+          {surveys.map((survey) => (
+            <AdminSurvey key={survey.id} survey={survey} />
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 }

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSurveyDispatch } from "../context/survey";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import classnames from "classnames";
 
-export default function Categories({ getSurveys }) {
+export default function Categories({ getAdministrationSurveys }) {
   const [categoryList, setCategoryList] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
   const dispatch = useSurveyDispatch();
@@ -26,7 +27,7 @@ export default function Categories({ getSurveys }) {
 
   const changeCategory = (category) => {
     dispatch({ type: "CHANGE_CATEGORY", payload: category });
-    getSurveys(category);
+    getAdministrationSurveys(category);
   };
 
   useEffect(() => {
@@ -34,10 +35,13 @@ export default function Categories({ getSurveys }) {
   }, []);
 
   return (
-    <ListGroup>
+    <ListGroup horizontal className="justify-content-center">
       <ListGroupItem
-        active={!currentCategory.id}
-        className="categoryList"
+        className={classnames(
+          !currentCategory.id
+            ? "categoryList bg-white rounded text-black"
+            : "categoryList bg-transparent text-white rounded"
+        )}
         onClick={(e) => {
           setCurrentCategory(emptyCategory);
           changeCategory(emptyCategory);
@@ -47,9 +51,12 @@ export default function Categories({ getSurveys }) {
       </ListGroupItem>
       {categoryList.map((category) => (
         <ListGroupItem
-          className="categoryList"
+          className={classnames(
+            category.id === currentCategory.id
+              ? "categoryList bg-white rounded text-black"
+              : "categoryList bg-transparent rounded text-white"
+          )}
           key={category.id}
-          active={category.id === currentCategory.id}
           onClick={(e) => {
             setCurrentCategory(category);
             changeCategory(category);

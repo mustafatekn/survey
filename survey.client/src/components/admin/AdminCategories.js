@@ -38,7 +38,6 @@ export default function AdminCategories() {
           },
         })
         .then((res) => {
-          console.log(res.data);
           dispatch({ type: "ADD_CATEGORY", payload: res.data });
           getCategories();
         })
@@ -58,11 +57,10 @@ export default function AdminCategories() {
   }, []);
 
   return (
-    <div className="mt-5 p-4">
+    <div className="p-4">
       <Form
         method="POST"
         onSubmit={submitNewCategory}
-        className="border border-3 p-4 rounded"
       >
         <h5>Add a category</h5>
         <FormGroup>
@@ -86,7 +84,6 @@ export default function AdminCategories() {
           <tr>
             <th>#</th>
             <th>Name</th>
-            <th></th>
             <th></th>
           </tr>
         </thead>

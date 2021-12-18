@@ -5,8 +5,7 @@ import {
   NavbarToggler,
   Collapse,
   Nav,
-  NavItem,
-  Button,
+  NavItem
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useAuthState, useAuthDispatch } from "../context/auth";
@@ -24,7 +23,7 @@ export default function NavigationBar() {
   };
 
   const unAuthenticatedNavbarMarkup = (
-    <Navbar color="light" expand="md" light fixed="top">
+    <Navbar color="light" expand="md" light fixed="top" id="navbar">
       <Link to="/" className="navbar-brand">
         Navbar
       </Link>
@@ -32,13 +31,8 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-          </NavItem>
-          <NavItem>
             <Link to="/survey" className="nav-link">
-              Surveys
+              Discover
             </Link>
           </NavItem>
           <NavItem>
@@ -57,7 +51,7 @@ export default function NavigationBar() {
   );
 
   const authenticatedNavbarMarkup = (
-    <Navbar color="light" expand="md" light fixed="top">
+    <Navbar color="light" expand="md" light fixed="top" id="navbar">
       <Link to="/" className="navbar-brand">
         Navbar
       </Link>
@@ -65,19 +59,14 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-          </NavItem>
-          <NavItem>
             <Link to="/survey" className="nav-link">
-              Surveys
+              Discover
             </Link>
           </NavItem>
           <NavItem>
-            <Button type="button" size="sm" onClick={() => logout()}>
+            <Link to="" className="nav-link" size="sm" onClick={() => logout()}>
               Logout
-            </Button>
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>
@@ -85,7 +74,7 @@ export default function NavigationBar() {
   );
 
   const adminNavbarMarkup = (
-    <Navbar color="light" expand="md" light fixed="top">
+    <Navbar color="light" expand="md" light fixed="top" id="navbar">
       <Link to="/" className="navbar-brand">
         Navbar
       </Link>
@@ -93,13 +82,8 @@ export default function NavigationBar() {
       <Collapse navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-          </NavItem>
-          <NavItem>
             <Link to="/survey" className="nav-link">
-              Surveys
+              Discover
             </Link>
           </NavItem>
           <NavItem>
@@ -108,9 +92,9 @@ export default function NavigationBar() {
             </Link>
           </NavItem>
           <NavItem>
-            <Button type="button" size="sm" onClick={() => logout()}>
+          <Link to="" className="nav-link" onClick={() => logout()}>
               Logout
-            </Button>
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>

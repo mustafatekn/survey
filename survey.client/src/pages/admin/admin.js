@@ -1,14 +1,14 @@
 import React from "react";
-import Sidebar from "../components/admin/Sidebar";
+import Sidebar from "../../components/admin/Sidebar";
 import { Row, Col } from "reactstrap";
 
 export default function admin() {
   return (
-      <Row>
+      <Row className="p-0 m-0">
         <Col md={2}>
-          <Sidebar />
+         <Sidebar/>
         </Col>
-        <Col md={10} className="mt-5 py-5">asdasd</Col>
+        <Col md={10}>asdasd</Col>
       </Row>
   );
 }

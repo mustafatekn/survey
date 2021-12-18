@@ -46,9 +46,14 @@ namespace survey.business.Concrete
             return await _unitOfWork.Surveys.GetById(id);
         }
 
-        public async Task<List<Survey>> GetSurveysByCategory(int categoryId)
+        public async Task<List<Survey>> GetAdministrationSurveys()
         {
-            return await _unitOfWork.Surveys.GetSurveysByCategory(categoryId);
+            return await _unitOfWork.Surveys.GetAdministrationSurveys();
+        }
+
+        public async Task<List<Survey>> GetAdministrationSurveysByCategory(int categoryId)
+        {
+            return await _unitOfWork.Surveys.GetAdministrationSurveysByCategory(categoryId);
         }
 
         public async Task<List<Survey>> GetSurveysWithAllData()

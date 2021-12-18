@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace survey.webapi.Controllers
         private ISurveyService _surveyService;
         private IChoiceService _choiceService;
         private ICategoryService _categoryService;
-        public SurveysController(ISurveyService surveyService, IChoiceService choiceService, ICategoryService categoryService)
+        private IAuthService _authService;
+        public SurveysController(ISurveyService surveyService, IChoiceService choiceService, ICategoryService categoryService, IAuthService authService)
         {
             _surveyService = surveyService;
             _choiceService = choiceService;
             _categoryService = categoryService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -38,10 +41,25 @@ namespace survey.webapi.Controllers
         }
 
         [HttpGet]
-        [Route("category")]
-        public async Task<IActionResult> GetSurveysByCategory(int categoryId)
+        [Route("administration/category")]
+        public async Task<IActionResult> GetAdministrationSurveysByCategory(int categoryId)
         {
-            var surveys = await _surveyService.GetSurveysByCategory(categoryId);
+            var surveys = await _surveyService.GetAdministrationSurveysByCategory(categoryId);
+            if (surveys == null)
+            {
+                return NotFound(categoryId);
+            }
+            else
+            {
+                return StatusCode(200, surveys);
+            }
+        }
+
+        [HttpGet]
+        [Route("administration")]
+        public async Task<IActionResult> GetAdministrationSurveys()
+        {
+            var surveys = await _surveyService.GetAdministrationSurveys();
             if (surveys == null)
             {
                 return NotFound();
@@ -57,15 +75,15 @@ namespace survey.webapi.Controllers
         public async Task<IActionResult> CreateSurvey([FromBody] CreateSurveyDto createSurveyDto)
         {
             var category = new Category();
-
-            if (createSurveyDto.CategoryId <= 0 && createSurveyDto.Description == null && createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null && createSurveyDto.Url == null)
+            var user = new User();
+            if (createSurveyDto.CategoryId < 1 && createSurveyDto.Description == null && createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null)
             {
                 return BadRequest();
             }
             else
             {
                 category = await _categoryService.GetById(createSurveyDto.CategoryId);
-
+                user = await _authService.GetById(createSurveyDto.UserId);
                 var survey = new Survey
                 {
                     Category = category,
@@ -73,7 +91,8 @@ namespace survey.webapi.Controllers
                     CreatedAt = createSurveyDto.CreatedAt,
                     Description = createSurveyDto.Description,
                     ImageUrl = createSurveyDto.ImageUrl,
-                    Url = createSurveyDto.Url
+                    Url = CreateUrl(createSurveyDto.Question),
+                    User = user
                 };
                 var createdSurvey = await _surveyService.Create(survey);
                 foreach (var choiceName in createSurveyDto.ChoiceNames)
@@ -102,6 +121,21 @@ namespace survey.webapi.Controllers
                 var deletedSurvey = await _surveyService.Delete(survey);
                 return StatusCode(200, deletedSurvey);
             }
+        }
+
+        private static string CreateUrl(string question)
+        {
+            string[] words = question.Split(' ');
+            var url = "";
+            for (int i = 0; i < words.Length; i++)
+            {
+                if(words[i]!=words[words.Length-1]){
+                    url += words[i] +"-";
+                }else{
+                    url += words[i];
+                }                
+            }
+            return url;
         }
         private static SurveyToReturnDto SurveyToDto(Survey survey)
         {

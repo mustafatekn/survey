@@ -12,11 +12,11 @@ export default function AdminCategory({ category, getCategories }) {
       axios
         .delete(`/categories/?id=${id}`, {
           headers: {
-            Authorization: localStorage.getItem('token')
-          }
+            Authorization: localStorage.getItem("token"),
+          },
         })
-        .then((res) => {;
-          dispatch({type: 'REMOVE_CATEGORY', payload:res.data.id })
+        .then((res) => {
+          dispatch({ type: "REMOVE_CATEGORY", payload: res.data.id });
           getCategories();
         })
         .catch((err) => {
@@ -37,15 +37,6 @@ export default function AdminCategory({ category, getCategories }) {
           size="sm"
         >
           Delete
-        </Button>
-      </td>
-      <td>
-        <Button
-          type="button"
-          color="warning"
-          size="sm"
-        >
-          Update
         </Button>
       </td>
     </tr>
