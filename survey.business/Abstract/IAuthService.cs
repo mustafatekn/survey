@@ -10,6 +10,7 @@ namespace survey.business.Abstract
         Task<User> Delete(User user);
         Task<List<User>> GetAll();
         Task<User> GetById(int id);
+        Task<User> GetUserDetailsByUsername(string username);
         Task<User> GetByEmail(string email);
         Task<User> Login(string username, string password);
         Task<bool> UserExistsByUsername(string username);

@@ -10,5 +10,6 @@ namespace survey.data.Abstract
         Task<bool> UserExistsByUsername(string username);
         Task<bool> UserExistsByEmail(string email);
         Task<User> GetByEmail(string email);
+        Task<User> GetUserDetailsByUsername(string username);
     }
 }

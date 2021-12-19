@@ -27,6 +27,15 @@ namespace survey.webapi.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUserDetails(string username)
+        {
+            if (String.IsNullOrEmpty(username)) return BadRequest();
+            var user = await _authService.GetUserDetailsByUsername(username);
+            if (user == null) return NotFound();
+            return Ok(UserToProfileDto(user));
+        }
+
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterDto userRegisterDto)
@@ -111,9 +120,9 @@ namespace survey.webapi.Controllers
             }
         }
 
-        private static UserToReturnDto UserToDto(User user, string token)
+        private static LoginUserToReturnDto UserToDto(User user, string token)
         {
-            return new UserToReturnDto
+            return new LoginUserToReturnDto
             {
                 Id = user.Id,
                 Email = user.Email,
@@ -124,5 +133,15 @@ namespace survey.webapi.Controllers
             };
         }
 
+        private static UserProfileDto UserToProfileDto(User user)
+        {
+            return new UserProfileDto
+            {
+                Email = user.Email,
+                CreatedAt = user.CreatedAt,
+                Username = user.Username,
+                Surveys = user.Surveys
+            };
+        }
     }
 }

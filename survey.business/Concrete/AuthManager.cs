@@ -31,7 +31,9 @@ namespace survey.business.Concrete
                 _unitOfWork.Users.Delete(user);
                 await _unitOfWork.SaveAsync();
                 return user;
-            }else{
+            }
+            else
+            {
                 return null;
             }
         }
@@ -66,6 +68,11 @@ namespace survey.business.Concrete
         public async Task<bool> UserExistsByEmail(string username)
         {
             return await _unitOfWork.Users.UserExistsByEmail(username);
+        }
+
+        public async Task<User> GetUserDetailsByUsername(string username)
+        {
+            return await _unitOfWork.Users.GetUserDetailsByUsername(username);
         }
     }
 }

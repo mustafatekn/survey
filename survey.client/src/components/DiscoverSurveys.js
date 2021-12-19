@@ -3,7 +3,6 @@ import axios from "axios";
 import DiscoverSurvey from "./DiscoverSurvey";
 import { useSurveyDispatch } from "../context/survey";
 import Categories from "./Categories";
-import PostSurvey from "./PostSurvey";
 
 export default function Surveys() {
   const [discoverSurveys, setDiscoverSurveys] = useState([]);

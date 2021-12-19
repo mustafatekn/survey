@@ -33,6 +33,11 @@ const surveyReducer = (state, action) => {
       return {
         ...state,
       };
+    case "GET_SURVEYS_BY_USER":
+      return {
+        ...state,
+        surveys:  action.payload,
+      };
     default:
       throw new Error(`unknown action type: ${action.type}`);
   }

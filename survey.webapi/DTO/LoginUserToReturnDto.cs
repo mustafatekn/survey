@@ -3,7 +3,7 @@ using survey.entity;
 
 namespace survey.webapi.DTO
 {
-    public class UserToReturnDto
+    public class LoginUserToReturnDto
     {
         public int Id { get; set; }
         public string Username { get; set; }

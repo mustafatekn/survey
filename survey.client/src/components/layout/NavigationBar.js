@@ -59,13 +59,17 @@ export default function NavigationBar() {
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="" className="nav-link" size="sm" onClick={() => logout()}>
-              Logout
+            <Link
+              to={user && `/${user.username}`}
+              className="nav-link"
+              style={{ textTransform: "capitalize" }}
+            >
+              {user && user.username}
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/profile" className="nav-link">
-              Profile
+            <Link to="" className="nav-link" size="sm" onClick={() => logout()}>
+              Logout
             </Link>
           </NavItem>
         </Nav>
@@ -94,11 +98,6 @@ export default function NavigationBar() {
           <NavItem>
             <Link to="" className="nav-link" onClick={() => logout()}>
               Logout
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to={`/user/${user.username}`} className="nav-link">
-              Profile
             </Link>
           </NavItem>
         </Nav>

@@ -55,7 +55,6 @@ namespace survey.business.Concrete
         {
             return await _unitOfWork.Surveys.GetDiscoverSurveysByCategory(categoryId);
         }
-
         public async Task<List<Survey>> GetSurveysWithAllData()
         {
             return await _unitOfWork.Surveys.GetSurveysWithAllData();

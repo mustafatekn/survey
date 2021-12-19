@@ -31,7 +31,6 @@ namespace survey.webapi.Controllers
             var surveys = await _surveyService.GetSurveysWithAllData();
             if (surveys == null) return NotFound();
             return Ok(surveys);
-
         }
 
         [HttpGet]

@@ -13,6 +13,7 @@ export default function Categories({ getDiscoverSurveys }) {
     id: 0,
     name: null,
   };
+  
   const getCategories = () => {
     axios
       .get("/categories")

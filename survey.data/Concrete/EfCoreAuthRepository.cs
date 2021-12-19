@@ -47,6 +47,13 @@ namespace survey.data.Concrete
             }
             return user;
         }
+
+        public async Task<User> GetUserDetailsByUsername(string username)
+        {
+            var user = await SurveyContext.Users.Include(u => u.Surveys).ThenInclude(s => s.Choices).Include(u => u.Surveys).ThenInclude(s => s.Votes).FirstOrDefaultAsync(u => u.Username == username);
+            return user;
+        }
+
         public async Task<bool> UserExistsByUsername(string username)
         {
             if (await SurveyContext.Users.AnyAsync(u => u.Username == username))
