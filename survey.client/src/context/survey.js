@@ -10,6 +10,11 @@ const surveyReducer = (state, action) => {
         ...state,
         discoverSurveys: action.payload,
       };
+    case "SET_MEMBER_SURVEYS":
+      return {
+        ...state,
+        memberSurveys: action.payload,
+      };
     case "SET_CATEGORIES":
       return {
         ...state,
@@ -25,6 +30,11 @@ const surveyReducer = (state, action) => {
         ...state,
         discoverSurveys: [...state.discoverSurveys, action.payload],
       };
+    case "CREATE_MEMBER_SURVEY":
+      return {
+        ...state,
+        memberSurveys: [...state.memberSurveys, action.payload],
+      };
     case "REMOVE_DISCOVER_SURVEY":
       var index = state.discoverSurveys.findIndex(
         (survey) => survey.id === action.payload
@@ -36,7 +46,7 @@ const surveyReducer = (state, action) => {
     case "GET_SURVEYS_BY_USER":
       return {
         ...state,
-        surveys:  action.payload,
+        surveys: action.payload,
       };
     default:
       throw new Error(`unknown action type: ${action.type}`);

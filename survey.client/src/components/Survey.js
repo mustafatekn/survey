@@ -4,6 +4,7 @@ import {
   CardFooter,
   CardHeader,
   CardText,
+  CardTitle,
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
@@ -11,7 +12,8 @@ import {
 export default function Survey({ survey }) {
   return (
     <Card className="my-5 mx-auto w-75">
-      <CardHeader className="px-3">{survey.question}</CardHeader>
+      <CardHeader className="px-3">{survey.user.username}</CardHeader>
+      <CardTitle className="px-3 my-2">{survey.question}</CardTitle>
       <CardText className="px-3 my-2">{survey.description}</CardText>
       <ListGroup className="my-">
         {survey.choices &&

@@ -28,7 +28,7 @@ namespace survey.webapi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSurveys()
         {
-            var surveys = await _surveyService.GetSurveysWithAllData();
+            var surveys = await _surveyService.GetMemberSurveys();
             if (surveys == null) return NotFound();
             return Ok(surveys);
         }
@@ -57,11 +57,9 @@ namespace survey.webapi.Controllers
         {
             var category = new Category();
             var user = new User();
-            if (createSurveyDto.CategoryId < 1 && createSurveyDto.Description == null
-            && createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null) return BadRequest();
+            if (createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null) return BadRequest();
 
             category = await _categoryService.GetById(createSurveyDto.CategoryId);
-            if (category == null) return NotFound();
 
             user = await _authService.GetById(createSurveyDto.UserId);
             if (user == null) return NotFound();
@@ -106,8 +104,15 @@ namespace survey.webapi.Controllers
             var url = "";
             for (int i = 0; i < words.Length; i++)
             {
-                if (words[i] != words[words.Length - 1]) url += words[i] + "-";
-                url += words[i];
+                if (words[i] != words[words.Length - 1])
+                {
+                    url += words[i] + "-";
+                }
+                else
+                {
+                    url += words[i];
+                }
+
             }
             return url;
         }

@@ -21,7 +21,6 @@ namespace survey.data.Concrete
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ChoiceConfiguration());
             modelBuilder.ApplyConfiguration(new SurveyConfiguration());
-            modelBuilder.ApplyConfiguration(new SurveyConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new VoteConfiguration());     
         }

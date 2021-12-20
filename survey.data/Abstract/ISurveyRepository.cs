@@ -6,7 +6,7 @@ namespace survey.data.Abstract
 {
     public interface ISurveyRepository : IRepository<Survey>
     {
-        Task<List<Survey>> GetSurveysWithAllData();
+        Task<List<Survey>> GetMemberSurveys();
         Task<List<Survey>> GetDiscoverSurveysByCategory(int categoryId);
         Task<List<Survey>> GetDiscoverSurveys();
     }

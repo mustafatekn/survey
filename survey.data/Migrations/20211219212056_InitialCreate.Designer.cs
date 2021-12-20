@@ -10,7 +10,7 @@ using survey.data.Concrete;
 namespace survey.data.Migrations
 {
     [DbContext(typeof(SurveyContext))]
-    [Migration("20211216213235_InitialCreate")]
+    [Migration("20211219212056_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,7 +73,6 @@ namespace survey.data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")

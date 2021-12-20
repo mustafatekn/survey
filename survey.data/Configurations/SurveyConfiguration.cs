@@ -10,7 +10,6 @@ namespace survey.data.Configurations
         {
             builder.HasKey(s => s.Id);
             builder.Property(s => s.CreatedAt).IsRequired();
-            builder.Property(s => s.Description).IsRequired();
             builder.Property(s => s.Question).IsRequired();
             builder.Property(s => s.Url).IsRequired();
         }

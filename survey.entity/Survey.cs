@@ -13,7 +13,7 @@ namespace survey.entity
         public string ImageUrl { get; set; }
         public DateTime CreatedAt { get; set; }
         public Category Category { get; set; }
-        public User User {get; set;}
+        public User User { get; set; }
         public List<Choice> Choices { get; set; }
         public List<Vote> Votes { get; set; }
     }

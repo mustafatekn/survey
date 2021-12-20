@@ -27,9 +27,9 @@ namespace survey.data.Concrete
         {
             return await SurveyContext.Surveys.Where(i => i.Category.Id == categoryId && i.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
         }
-        public async Task<List<Survey>> GetSurveysWithAllData()
+        public async Task<List<Survey>> GetMemberSurveys()
         {
-            return await SurveyContext.Surveys.Include(s => s.Votes).Include(s => s.Choices).Include(s => s.Category).ToListAsync();
+            return await SurveyContext.Surveys.Include(s => s.Votes).Include(s => s.Choices).Include(s => s.Category).Include(s => s.User).Where(s => s.User.Role == EnumRole.Member).ToListAsync();
         }
     }
 }
