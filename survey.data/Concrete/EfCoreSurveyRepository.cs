@@ -20,12 +20,12 @@ namespace survey.data.Concrete
 
         public async Task<List<Survey>> GetDiscoverSurveys()
         {
-            return await SurveyContext.Surveys.Where(s => s.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
+            return await SurveyContext.Surveys.Where(s => s.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).Include(s => s.Votes).ToListAsync();
         }
 
         public async Task<List<Survey>> GetDiscoverSurveysByCategory(int categoryId)
         {
-            return await SurveyContext.Surveys.Where(i => i.Category.Id == categoryId && i.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).ToListAsync();
+            return await SurveyContext.Surveys.Where(i => i.Category.Id == categoryId && i.User.Role == EnumRole.Admin).Include(s => s.Category).Include(s => s.Choices).Include(s => s.Votes).ToListAsync();
         }
         public async Task<List<Survey>> GetMemberSurveys()
         {

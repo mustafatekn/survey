@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthState } from "../context/auth";
 import WelcomeHome from "../pages/welcomeHome";
 import Discover from "../pages/discover";

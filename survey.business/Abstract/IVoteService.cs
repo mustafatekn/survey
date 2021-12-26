@@ -9,6 +9,6 @@ namespace survey.business.Abstract
         Task<Vote> Create(Vote vote);
         Task<List<Vote>> GetAll();
         Task<Vote> GetById(int id);
-        Task Vote(int choiceId, int surveyId);
+        Task<List<Vote>> GetVotesBySurveyId(int surveyId);
     }
 }

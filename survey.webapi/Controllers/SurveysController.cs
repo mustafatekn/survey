@@ -55,24 +55,22 @@ namespace survey.webapi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateSurvey([FromBody] CreateSurveyDto createSurveyDto)
         {
-            var category = new Category();
-            var user = new User();
+
             if (createSurveyDto.Question == null && createSurveyDto.ChoiceNames == null) return BadRequest();
 
-            category = await _categoryService.GetById(createSurveyDto.CategoryId);
-
+            var user = new User();
             user = await _authService.GetById(createSurveyDto.UserId);
-            if (user == null) return NotFound();
+            if (user == null) return Unauthorized();
 
             var survey = new Survey
             {
-                Category = category,
+                CategoryId = createSurveyDto.CategoryId,
                 Question = createSurveyDto.Question,
                 CreatedAt = createSurveyDto.CreatedAt,
                 Description = createSurveyDto.Description,
                 ImageUrl = createSurveyDto.ImageUrl,
                 Url = CreateUrl(createSurveyDto.Question),
-                User = user
+                UserId = createSurveyDto.UserId,
             };
 
             var createdSurvey = await _surveyService.Create(survey);
@@ -85,7 +83,7 @@ namespace survey.webapi.Controllers
                 };
                 await _choiceService.Create(choice);
             };
-            return StatusCode(201, SurveyToDto(survey));
+            return StatusCode(201, SurveyToDto(createdSurvey));
         }
         [HttpDelete]
         [Authorize]
@@ -123,6 +121,7 @@ namespace survey.webapi.Controllers
                 Id = survey.Id,
                 Choices = survey.Choices,
                 Votes = survey.Votes,
+                User = survey.User,
                 Category = survey.Category,
                 CreatedAt = survey.CreatedAt,
                 Question = survey.Question,

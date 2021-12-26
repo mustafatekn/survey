@@ -9,7 +9,7 @@ export default function AdminSurveys() {
   const [surveys, setSurveys] = useState([]);
   const dispatch = useSurveyDispatch();
 
-  const getDiscoverSurveys = (category) => {
+  const getSurveys = (category) => {
     if (category && category.id !== 0) {
       axios
         .get(`/surveys/discover/category/?categoryId=${category.id}`)
@@ -31,7 +31,7 @@ export default function AdminSurveys() {
   };
 
   useEffect(() => {
-    getDiscoverSurveys();
+    getSurveys();
   }, []);
 
   return (
@@ -39,7 +39,7 @@ export default function AdminSurveys() {
       <PostDiscoverSurvey
         setSurveys={setSurveys}
         surveys={surveys}
-        getDiscoverSurveys={getDiscoverSurveys}
+        getSurveys={getSurveys}
       />
       <Table borderless hover responsive>
         <thead>
@@ -59,7 +59,7 @@ export default function AdminSurveys() {
             <AdminSurvey
               key={survey.id}
               survey={survey}
-              getDiscoverSurveys={getDiscoverSurveys}
+              getSurveys={getSurveys}
             />
           ))}
         </tbody>

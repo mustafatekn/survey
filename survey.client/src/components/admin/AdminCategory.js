@@ -5,7 +5,7 @@ import { useAuthState } from "../../context/auth";
 import { useCategoryDispatch } from "../../context/category";
 import roleStatement from "../../util/roleStatement";
 
-export default function AdminCategory({ category, getCategories }) {
+export default function AdminCategory({ category, categories, setCategories }) {
   const { user } = useAuthState();
   const dispatch = useCategoryDispatch();
   const deleteCategory = (id) => {
@@ -18,7 +18,7 @@ export default function AdminCategory({ category, getCategories }) {
       })
       .then((res) => {
         dispatch({ type: "REMOVE_CATEGORY", payload: res.data.id });
-        getCategories();
+        setCategories([...categories.filter((category) => category.id !== id)]);
       })
       .catch((err) => {
         console.log(err);

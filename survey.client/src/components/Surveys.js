@@ -29,7 +29,7 @@ export default function Surveys() {
         getSurveys={getSurveys}
       />
       {surveys.map((survey) => (
-        <Survey survey={survey} />
+        <Survey survey={survey} key={survey.id}/>
       ))}
     </div>
   );

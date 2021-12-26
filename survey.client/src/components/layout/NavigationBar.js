@@ -105,11 +105,11 @@ export default function NavigationBar() {
     </Navbar>
   );
 
-  if (roleStatement(user) === "admin") {
+  if (user && roleStatement(user) === "admin") {
     return adminNavbarMarkup;
-  } else if (roleStatement(user) === "authenticated") {
+  } else if (user && roleStatement(user) === "authenticated") {
     return authenticatedNavbarMarkup;
-  } else if (roleStatement(user) === "unAuthenticated") {
+  } else{
     return unAuthenticatedNavbarMarkup;
   }
 }

@@ -4,7 +4,7 @@ import { useSurveyDispatch } from "../context/survey";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import classnames from "classnames";
 
-export default function Categories({ getDiscoverSurveys }) {
+export default function Categories({ getSurveys }) {
   const [categoryList, setCategoryList] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
   const dispatch = useSurveyDispatch();
@@ -13,7 +13,7 @@ export default function Categories({ getDiscoverSurveys }) {
     id: 0,
     name: null,
   };
-  
+
   const getCategories = () => {
     axios
       .get("/categories")
@@ -28,7 +28,7 @@ export default function Categories({ getDiscoverSurveys }) {
 
   const changeCategory = (category) => {
     dispatch({ type: "CHANGE_CATEGORY", payload: category });
-    getDiscoverSurveys(category);
+    getSurveys(category);
   };
 
   useEffect(() => {

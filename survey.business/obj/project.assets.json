@@ -5736,19 +5736,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
+    "C:\\Users\\Penthos\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\survey\\survey.business\\survey.business.csproj",
+      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\survey.business.csproj",
       "projectName": "survey.business",
-      "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.business\\survey.business.csproj",
-      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.business\\obj\\",
+      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\survey.business.csproj",
+      "packagesPath": "C:\\Users\\Penthos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.business\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Penthos\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -5760,11 +5760,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\ASUS\\Desktop\\survey\\survey.data\\survey.data.csproj": {
-              "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.data\\survey.data.csproj"
+            "C:\\Users\\Penthos\\Desktop\\survey\\survey.data\\survey.data.csproj": {
+              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.data\\survey.data.csproj"
             },
-            "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj": {
-              "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj"
+            "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj": {
+              "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj"
             }
           }
         }
@@ -5793,7 +5793,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.210\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

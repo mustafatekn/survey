@@ -15,7 +15,6 @@ export default function Profile() {
       .get(`/auth/?username=${username}`)
       .then((res) => {
         setUser(res.data);
-        console.log(res.data);
         dispatch({ type: "SET_USER", payload: res.data });
       })
       .catch((err) => {

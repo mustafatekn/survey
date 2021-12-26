@@ -21,14 +21,32 @@ namespace survey.webapi.Controllers
             _choiceService = choiceService;
             _surveyService = surveyService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetVotes()
+        {
+            var votes = await _voteService.GetAll();
+            return StatusCode(200, votes);
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Vote([FromBody] CreateVoteDto createVoteDto)
         {
-            if (createVoteDto.ChoiceId < 0 && createVoteDto.SurveyId < 0) return BadRequest();
+            if (createVoteDto.ChoiceId < 0 && createVoteDto.SurveyId < 0 && createVoteDto.UserId < 0) return BadRequest();
+            var survey = _surveyService.GetById(createVoteDto.SurveyId);
+            var choice = _choiceService.GetById(createVoteDto.ChoiceId);
+            if (survey == null || choice == null) return NotFound();
+        
+            var vote = new Vote
+            {
+                ChoiceId = createVoteDto.ChoiceId,
+                SurveyId = createVoteDto.SurveyId,
+                UserId = createVoteDto.UserId
+            };
 
-            await _voteService.Vote(createVoteDto.ChoiceId, createVoteDto.SurveyId);
-            return StatusCode(201);
+            var createdVote = await _voteService.Create(vote);
+            return StatusCode(201, createdVote);
         }
     }
 }

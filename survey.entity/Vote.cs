@@ -5,5 +5,6 @@ namespace survey.entity
         public int Id { get; set; }
         public int SurveyId { get; set; }
         public int ChoiceId { get; set; }
+        public int UserId { get; set; }
     }
 }

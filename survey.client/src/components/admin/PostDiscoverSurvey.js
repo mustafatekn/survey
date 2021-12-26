@@ -7,11 +7,7 @@ import ChoiceInput from "../layout/ChoiceInput";
 import { useAuthState } from "../../context/auth";
 import roleStatement from "../../util/roleStatement";
 
-export default function PostDiscoverSurvey({
-  setSurveys,
-  surveys,
-  getDiscoverSurveys,
-}) {
+export default function PostDiscoverSurvey({ getSurveys }) {
   const { user } = useAuthState();
   const [survey, setSurvey] = useState({
     question: "",
@@ -21,7 +17,7 @@ export default function PostDiscoverSurvey({
     userId: user.id || parseInt(user.nameid),
     imageUrl: "",
   });
-  const [choices] = useState([]);
+  const [choices, setChoicesEmpty] = useState([]);
   const [categories, setCategories] = useState([]);
   let [choiceInputQuantity, setChoiceInputQuantity] = useState(0);
 
@@ -40,17 +36,6 @@ export default function PostDiscoverSurvey({
       });
   };
 
-  const increaseInputQuantity = () => {
-    setChoiceInputQuantity(++choiceInputQuantity);
-  };
-
-  const setChoices = () => {
-    const choiceInputs = document.getElementsByName("choice");
-    choiceInputs.forEach((choiceInput) => {
-      choices.push(choiceInput.value);
-    });
-  };
-
   const postSurvey = (e) => {
     if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
     e.preventDefault();
@@ -64,12 +49,43 @@ export default function PostDiscoverSurvey({
       })
       .then((res) => {
         dispatchSurvey({ type: "CREATE_DISCOVER_SURVEY", payload: res.data });
-        setSurveys([...surveys, res.data]);
-        getDiscoverSurveys();
+        getSurveys();
+        clearInputs();
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const increaseInputQuantity = () => {
+    setChoiceInputQuantity(++choiceInputQuantity);
+  };
+
+  const setChoices = () => {
+    const choiceInputs = document.getElementsByName("choice");
+    choiceInputs.forEach((choiceInput) => {
+      choices.push(choiceInput.value);
+    });
+  };
+
+  const clearInputs = () => {
+    setChoicesEmpty([]);
+    setSurvey({
+      question: "",
+      description: "",
+      choiceNames: [],
+      categoryid: 0,
+      imageUrl: "",
+      userId: user.id || parseInt(user.nameid),
+    });
+    setChoiceInputQuantity(0);
+    document.getElementById("questionInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementsByName("choice").forEach((choiceInput) => {
+      choiceInput.value = "";
+    });
+    document.getElementById("categoryInput").value = "Choose a category";
   };
 
   useEffect(() => {
@@ -104,6 +120,7 @@ export default function PostDiscoverSurvey({
       <FormGroup>
         <Label for="categoryInput">Category</Label>
         <Input
+          id="categoryInput"
           className="mb-3"
           type="select"
           defaultValue={"Choose a category"}

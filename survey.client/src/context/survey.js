@@ -8,12 +8,12 @@ const surveyReducer = (state, action) => {
     case "SET_DISCOVER_SURVEYS":
       return {
         ...state,
-        discoverSurveys: action.payload,
+        surveys: action.payload,
       };
     case "SET_MEMBER_SURVEYS":
       return {
         ...state,
-        memberSurveys: action.payload,
+        surveys: action.payload,
       };
     case "SET_CATEGORIES":
       return {
@@ -28,18 +28,18 @@ const surveyReducer = (state, action) => {
     case "CREATE_DISCOVER_SURVEY":
       return {
         ...state,
-        discoverSurveys: [...state.discoverSurveys, action.payload],
+        surveys: [...state.surveys, action.payload],
       };
     case "CREATE_MEMBER_SURVEY":
       return {
         ...state,
-        memberSurveys: [...state.memberSurveys, action.payload],
+        surveys: [...state.surveys, action.payload],
       };
     case "REMOVE_DISCOVER_SURVEY":
-      var index = state.discoverSurveys.findIndex(
+      var index = state.surveys.findIndex(
         (survey) => survey.id === action.payload
       );
-      state.discoverSurveys.splice(index, 1);
+      state.surveys.splice(index, 1);
       return {
         ...state,
       };
@@ -47,6 +47,19 @@ const surveyReducer = (state, action) => {
       return {
         ...state,
         surveys: action.payload,
+      };
+    case "VOTE_A_SURVEY":
+      let surveys = [...state.surveys];
+      let survey = surveys.find(
+        (i) => i.id === action.payload.surveyId
+      );
+
+      let votesCopy = survey.votes;
+      let length = votesCopy.length;
+      votesCopy[length] = action.payload;
+      return {
+        ...state,
+        surveys : [...surveys]
       };
     default:
       throw new Error(`unknown action type: ${action.type}`);

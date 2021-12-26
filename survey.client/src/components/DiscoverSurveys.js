@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DiscoverSurvey from "./DiscoverSurvey";
 import { useSurveyDispatch } from "../context/survey";
 import Categories from "./Categories";
+import Survey from "./Survey";
 
 export default function Surveys() {
-  const [discoverSurveys, setDiscoverSurveys] = useState([]);
+  const [surveys, setSurveys] = useState([]);
   const dispatch = useSurveyDispatch();
 
-  const getDiscoverSurveys = (category) => {
+  const getSurveys = (category) => {
     if (category && category.id !== 0) {
       axios
         .get(`/surveys/discover/category/?categoryId=${category.id}`)
         .then((res) => {
-          setDiscoverSurveys(res.data);
+          setSurveys(res.data);
           dispatch({ type: "SET_DISCOVER_SURVEYS", payload: res.data });
         });
     } else {
       axios
         .get("/surveys/discover")
         .then((res) => {
-          setDiscoverSurveys(res.data);
+          setSurveys(res.data);
           dispatch({ type: "SET_DISCOVER_SURVEYS", payload: res.data });
         })
         .catch((err) => {
@@ -30,19 +30,19 @@ export default function Surveys() {
   };
 
   useEffect(() => {
-    getDiscoverSurveys();
+    getSurveys();
   }, []);
 
   return (
     <div>
       <div className="bg-dark py-2">
-        <Categories getDiscoverSurveys={getDiscoverSurveys} />
-      </div>
-      {discoverSurveys.map((discoverSurvey) => (
-        <DiscoverSurvey
-          discoverSurvey={discoverSurvey}
-          key={discoverSurvey.id}
+        <Categories
+          getSurveys={getSurveys}
+          surveys={surveys}
         />
+      </div>
+      {surveys.map((survey) => (
+        <Survey survey={survey} key={survey.id} />
       ))}
     </div>
   );

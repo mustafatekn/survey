@@ -9,6 +9,7 @@ namespace survey.webapi.DTO
         public int Id { get; set; }
         public string Question { get; set; }
         public string Url { get; set; }
+        public User User { get; set; }
         public DateTime CreatedAt { get; set; }
         public Category Category { get; set; }
         public List<Choice> Choices { get; set; }

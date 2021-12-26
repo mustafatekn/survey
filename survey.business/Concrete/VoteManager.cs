@@ -32,9 +32,9 @@ namespace survey.business.Concrete
             return await _unitOfWork.Votes.GetById(id);
         }
 
-        public async Task Vote(int choiceId, int surveyId)
+        public async Task<List<Vote>> GetVotesBySurveyId(int surveyId)
         {
-            await _unitOfWork.Votes.Vote(choiceId,surveyId);
+            return await _unitOfWork.Votes.GetVotesBySurveyId(surveyId);
         }
     }
 }

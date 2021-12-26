@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -18,20 +19,9 @@ namespace survey.data.Concrete
             get { return context as SurveyContext; }
         }
 
-        public async Task Vote(int choiceId, int surveyId)
+        public async Task<List<Vote>> GetVotesBySurveyId(int surveyId)
         {
-            var isVoteValid = await SurveyContext.Surveys.Where(s => s.Id == surveyId && s.Choices.Any(c => c.Id == choiceId)).FirstOrDefaultAsync();
-
-            if (isVoteValid != null)
-            {
-                var vote = new Vote
-                {
-                    ChoiceId = choiceId,
-                    SurveyId = surveyId
-                };
-                await SurveyContext.Votes.AddAsync(vote);
-                await SurveyContext.SaveChangesAsync();
-            }
+            return await SurveyContext.Votes.Where(i => i.SurveyId == surveyId).ToListAsync();
         }
     }
 }

@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ASUS\\.nuget\\packages\\": {}
+    "C:\\Users\\Penthos\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
+      "projectUniqueName": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
       "projectName": "survey.entity",
-      "projectPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
-      "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ASUS\\Desktop\\survey\\survey.entity\\obj\\",
+      "projectPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\survey.entity.csproj",
+      "packagesPath": "C:\\Users\\Penthos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Penthos\\Desktop\\survey\\survey.entity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Penthos\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.210\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

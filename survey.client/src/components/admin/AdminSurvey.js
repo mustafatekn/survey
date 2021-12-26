@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
-import axios from 'axios'
+import axios from "axios";
 import roleStatement from "../../util/roleStatement";
 import { useAuthState } from "../../context/auth";
 import { useSurveyDispatch } from "../../context/survey";
 
-export default function AdminSurvey({ survey, getDiscoverSurveys }) {
+export default function AdminSurvey({ survey, getSurveys }) {
   const { user } = useAuthState();
   const dispatch = useSurveyDispatch();
 
@@ -20,7 +20,6 @@ export default function AdminSurvey({ survey, getDiscoverSurveys }) {
       })
       .then((res) => {
         dispatch({ type: "REMOVE_DISCOVER_SURVEY", payload: res.data });
-        getDiscoverSurveys();
       })
       .catch((err) => {
         console.log(err);

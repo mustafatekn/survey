@@ -19,11 +19,34 @@ export default function PostSurvey({ surveys, getSurveys, setSurveys }) {
   });
   const [categories, setCategories] = useState([]);
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
-  const [choices] = useState([]);
+  const [choices, setChoices] = useState([]);
   let [choiceInputQuantity, setChoiceInputQuantity] = useState(0);
 
   const dispatchCategory = useCategoryDispatch();
   const dispatchSurvey = useSurveyDispatch();
+
+  const postSurvey = (e) => {
+    if (roleStatement(user) === "unauthenticated")
+      throw new Error("Unauthorized");
+    e.preventDefault();
+    addToChoices();
+    survey.choiceNames = choices;
+    axios
+      .post("/surveys", survey, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        dispatchSurvey({ type: "CREATE_MEMBER_SURVEY", payload: res.data });
+        setSurveys([...surveys, res.data]);
+        clearInputs();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const toggleDescriptionVisibility = () => {
     if (descriptionVisibility === false) {
       setDescriptionVisibility(true);
@@ -48,35 +71,31 @@ export default function PostSurvey({ surveys, getSurveys, setSurveys }) {
       });
   };
 
-  const setChoices = () => {
+  const addToChoices = () => {
     const choiceInputs = document.getElementsByName("choice");
     choiceInputs.forEach((choiceInput) => {
       choices.push(choiceInput.value);
     });
   };
 
-  const postSurvey = (e) => {
-    if (roleStatement(user) === "unauthenticated")
-      throw new Error("Unauthorized");
-    e.preventDefault();
-    setChoices();
-    survey.choiceNames = choices;
-    console.log(survey);
-    axios
-      .post("/surveys", survey, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        dispatchSurvey({ type: "CREATE_MEMBER_SURVEY", payload: res.data });
-        setSurveys([...surveys, res.data]);
-        getSurveys();
-        console.log(survey);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const clearInputs = () => {
+    setChoices([]);
+    setSurvey({
+      question: "",
+      description: "",
+      choiceNames: [],
+      categoryid: 0,
+      imageUrl: "",
+      userId: user.id || parseInt(user.nameid),
+    });
+    setChoiceInputQuantity(0);
+    document.getElementById("questionInput").value = "";
+    document.getElementById("descriptionInput").value = "";
+    document.getElementById("imageUrlInput").value = "";
+    document.getElementsByName("choice").forEach((choiceInput) => {
+      choiceInput.value = "";
+    });
+    document.getElementById("categoryInput").value = "Choose a category";
   };
 
   useEffect(() => {
@@ -128,6 +147,7 @@ export default function PostSurvey({ surveys, getSurveys, setSurveys }) {
         <Input
           className="mb-3"
           type="select"
+          id="categoryInput"
           defaultValue={"Choose a category"}
           onChange={(e) => setSurvey({ ...survey, categoryid: e.target.value })}
         >

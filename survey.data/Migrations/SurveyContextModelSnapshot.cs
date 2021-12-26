@@ -84,7 +84,7 @@ namespace survey.data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -146,6 +146,9 @@ namespace survey.data.Migrations
                     b.Property<int>("SurveyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SurveyId");
@@ -172,7 +175,9 @@ namespace survey.data.Migrations
 
                     b.HasOne("survey.entity.User", "User")
                         .WithMany("Surveys")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

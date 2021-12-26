@@ -5,12 +5,14 @@ import { Table, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import AdminCategory from "./AdminCategory";
 import { useAuthState } from "../../context/auth";
 import roleStatement from "../../util/roleStatement";
+import PostAdminCategory from "./PostAdminCategory";
 
 export default function AdminCategories() {
   const [categories, setCategories] = useState([]);
-  const [newCategory, setNewCategory] = useState({});
+  
   const dispatch = useCategoryDispatch();
   const { user } = useAuthState();
+
   const getCategories = () => {
     if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
     axios
@@ -24,51 +26,13 @@ export default function AdminCategories() {
       });
   };
 
-  const addNewCategory = (category) => {
-    if (roleStatement(user) !== "admin") throw new Error("Unauthorized");
-    axios
-      .post("/categories", category, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        dispatch({ type: "ADD_CATEGORY", payload: res.data });
-        getCategories();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const submitNewCategory = (e) => {
-    e.preventDefault();
-    addNewCategory(newCategory);
-  };
-
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [categories]);
 
   return (
     <div className="p-4">
-      <Form method="POST" onSubmit={submitNewCategory}>
-        <h5>Add a category</h5>
-        <FormGroup>
-          <Label for="categoryNameInput">Category Name</Label>
-          <Input
-            id="categoryNameInput"
-            name="name"
-            type="text"
-            onChange={(e) =>
-              setNewCategory({ ...newCategory, name: e.target.value })
-            }
-          />
-        </FormGroup>
-        <Button type="submit" className="w-100">
-          Submit
-        </Button>
-      </Form>
+      <PostAdminCategory categories={categories} setCategories={setCategories}/>
 
       <Table borderless hover responsive>
         <thead>
@@ -84,7 +48,8 @@ export default function AdminCategories() {
               <AdminCategory
                 category={category}
                 key={category.id}
-                getCategories={getCategories}
+                categories={categories}
+                setCategories={setCategories}
               />
             );
           })}
